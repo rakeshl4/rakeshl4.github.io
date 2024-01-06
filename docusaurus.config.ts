@@ -3,8 +3,8 @@ import type {Config} from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'SkywardCoding',
+  tagline: 'Rise to the Summit of Cloud Development',
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
@@ -16,7 +16,7 @@ const config: Config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'rakeshl4', // Usually your GitHub org/user name.
-  projectName: 'azure-blog', // Usually your repo name.
+  projectName: 'rakeshl4.github.io', // Usually your repo name.
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -58,11 +58,11 @@ const config: Config = {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
     navbar: {
-      title: 'My Site',
-      logo: {
-        alt: 'My Site Logo',
-        src: 'img/logo.svg',
-      },
+      title: 'SkywardCoding',
+      // logo: {
+      //   alt: 'SkywardCoding',
+      //   src: 'img/logo.svg',
+      // },
       items: [
         {
           type: 'docSidebar',
