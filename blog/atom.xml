@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://rakeshl4.github.io/blog</id>
+    <title>SkywardCoding Blog</title>
+    <updated>2021-08-26T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://rakeshl4.github.io/blog"/>
+    <subtitle>SkywardCoding Blog</subtitle>
+    <icon>https://rakeshl4.github.io/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Welcome]]></title>
+        <id>https://rakeshl4.github.io/blog/welcome</id>
+        <link href="https://rakeshl4.github.io/blog/welcome"/>
+        <updated>2021-08-26T00:00:00.000Z</updated>
+        <author>
+            <name>Rakesh Lakshminarayana</name>
+            <uri>https://github.com/rakeshl4</uri>
+        </author>
+        <category label="azure" term="azure"/>
+    </entry>
+</feed>

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkrakeshl_4_github_io=self.webpackChunkrakeshl_4_github_io||[]).push([[226],{6637:a=>{a.exports=JSON.parse('{"label":"azure","permalink":"/blog/tags/azure","allTagsPath":"/blog/tags","count":1,"unlisted":false}')}}]);
