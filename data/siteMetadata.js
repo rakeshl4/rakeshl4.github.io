@@ -1,13 +1,13 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'Next.js Starter Blog',
+  title: 'BytesBlogger',
   author: 'Rakesh Lakshminarayana',
-  headerTitle: 'TailwindBlog',
+  headerTitle: 'BytesBlogger',
   description: 'A blog created with Next.js and Tailwind.css',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://rakeshl4.github.io',
-  siteRepo: 'https://github.com/rakeshl4/rakeshl4.github.io',
+  siteRepo: 'https://github.com/rakeshl4/blog-v2',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,
   socialBanner: `${process.env.BASE_PATH || ''}/static/images/twitter-card.png`,
   // mastodon: 'https://mastodon.social/@mastodonuser',
