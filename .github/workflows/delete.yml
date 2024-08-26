@@ -1,0 +1,30 @@
+name: Delete GH-Pages Content
+
+on:
+  push:
+    branches:
+      - main  # Trigger this action when changes are pushed to the main branch
+  workflow_dispatch:  # Allow manual triggering of the workflow
+
+jobs:
+  delete-gh-pages-content:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout gh-pages branch
+        uses: actions/checkout@v2
+        with:
+          ref: gh-pages
+
+      - name: Delete all content
+        run: |
+          rm -rf *
+          git rm -rf .
+          git clean -fdx
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git commit -m "Delete all content from gh-pages"
+          git push origin gh-pages --force
