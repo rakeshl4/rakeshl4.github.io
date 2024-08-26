@@ -51,8 +51,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - id: remove
-        run: rm -rf _site
       - id: deployment
         uses: actions/deploy-pages@v4
 

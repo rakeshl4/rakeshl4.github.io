@@ -25,5 +25,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: remove
-        run: rm -rf _site
+        run: rm -rf *
 
