@@ -1,8 +1,8 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'BytesBlogger',
+  title: 'BinaryTrails',
   author: 'Rakesh Lakshminarayana',
-  headerTitle: 'BytesBlogger',
+  headerTitle: 'BinaryTrails',
   description: 'A blog created with Next.js and Tailwind.css',
   language: 'en-us',
   theme: 'system', // system, dark or light
