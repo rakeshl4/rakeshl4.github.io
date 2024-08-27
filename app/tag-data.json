@@ -1,11 +1,11 @@
 {
-    "rag": 1,
-    "openai": 2,
-    "llm": 2,
-    "ai-agent": 1,
-    "azure": 1,
-    "azure-functions": 1,
-    "aks": 1,
-    "kubernetes": 1,
-    "container": 1
+  "rag": 1,
+  "openai": 2,
+  "llm": 2,
+  "ai-agent": 1,
+  "azure": 1,
+  "azure-functions": 1,
+  "aks": 1,
+  "kubernetes": 1,
+  "container": 1
 }
