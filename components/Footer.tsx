@@ -28,6 +28,9 @@ export default function Footer() {
           <Link href="https://github.com/timlrx/tailwind-nextjs-starter-blog">
             Powered by Tailwind Nextjs Theme
           </Link>
+          <Link href="https://www.freepik.com/icon/electronic_11189210">
+          Icon by lakonicon
+          </Link>
         </div>
       </div>
     </footer>
