@@ -31,9 +31,9 @@ Here is an example of how the model can respond to a user query:
             The price is $500. Would you like to know more about it ?
 
 
-            | Product Name  | Features         | Specifications              | Price |
-            | ------------- | ---------------- | --------------------------- | ----- |
-            | City Commuter | Comfortable seat | Suitable for city commuting | $500  |
+            | Product Name  |  Specifications             | Price |
+            | ------------- | --------------------------- | ----- |
+            | City Commuter | Suitable for city commuting | $500  |
 
 ```
 
