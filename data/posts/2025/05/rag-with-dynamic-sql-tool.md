@@ -53,7 +53,7 @@ Here’s how the flow works:
 **Step 1**: The user asks a question in natural language.
 **Step 2**: The LLM generate a plan to use the SQL plugin for generating the SQL query.
 **Step 3**: The LLM generates the SQL query based on the schema and user request.
-**Step 4**: The application executes the SQL against the database, fetches the results, and presents them to the user in a readable format (e.g., a table).
+**Step 4**: The application executes the SQL against the database, fetches the results, and presents them to the user in a readable format.
 
 ## See it in action:
 
