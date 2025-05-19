@@ -1,1 +1,15 @@
-{"tools":1,"rag":2,"openai":3,"llm":3,"azure":2,"azure-functions":1,"aks":1,"kubernetes":1,"container":1,"ai-agent":1,"apiops":1,"devops":1,"apim":1}
+{
+  "tools": 1,
+  "rag": 2,
+  "openai": 3,
+  "llm": 3,
+  "ai-agent": 1,
+  "azure": 2,
+  "azure-functions": 1,
+  "aks": 1,
+  "kubernetes": 1,
+  "container": 1,
+  "apiops": 1,
+  "devops": 1,
+  "apim": 1
+}

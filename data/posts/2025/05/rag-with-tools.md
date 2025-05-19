@@ -4,36 +4,38 @@ In my previous post [Creating an AI assistant with your own data](https://binary
 
 ## Where does semantic search fall short ?
 
-In the example below, the `{{products}}` variable contains information about various bikes, including their features, specifications, and prices. 
+In the example below, the `{{products}}` variable contains information about various bikes, including their features, specifications, and prices. This data is fetched dynamically from the database and passed to the LLM as context. The records fetched from the database have the same semantic meaning as the user query. The LLM is then prompted with the records to answer user queries.
 
-With this data, the model can answer questions about the bikes and provide recommendations based on the user's preferences.
+```text
 
-   ```text
+You are an AI assistant for a bike store to help the customer
+with questions on the products.The answers should be based on the information
+provided about the products below -
 
-   You are an AI assistant for a bike store to help the customer
-   with questions on the products.The answers should be based on the information
-   provided about the products below -
+{{products}}
 
-   {{products}}
+The products should be in table format with columns for the product name,
+features, specifications, and prices.
 
-   The products should be in table format with columns for the product name,
-   features, specifications, and prices.
+```
 
-       [user]: I want a bike that is good for commuting in the city
-               and has a comfortable seat. What do you recommend ?
+Here is an example of how the model can respond to a user query:
 
-   [assisant]: You can try the City Commuter bike.
-               It has a comfortable seat and is perfect for city commuting.
-               The price is $500. Would you like to know more about it ?
+```text
+
+    [user]: I want a bike that is good for commuting in the city
+            and has a comfortable seat. What do you recommend ?
+
+[assisant]: You can try the City Commuter bike.
+            It has a comfortable seat and is perfect for city commuting.
+            The price is $500. Would you like to know more about it ?
 
 
-               | Product Name  | Features         | Specifications              | Price |
-               | ------------- | ---------------- | --------------------------- | ----- |
-               | City Commuter | Comfortable seat | Suitable for city commuting | $500  |
+            | Product Name  | Features         | Specifications              | Price |
+            | ------------- | ---------------- | --------------------------- | ----- |
+            | City Commuter | Comfortable seat | Suitable for city commuting | $500  |
 
-   ```
-
-It is able to retrieve the relevant bikes by querying the database that has the same semantic meaning as the user query.
+```
 
 While this approach works for answering most of the user queries, it would fall short when the user asks for any questions that would require a more specific set of records to be fetched.
 
@@ -50,14 +52,14 @@ For example, think of the following questions from the user -
 ```
 
 ```text
-   [user]: What is the price of the model Trek Domane SLR 7 ? 
+   [user]: What is the price of the model Trek Domane SLR 7 ?
 ```
 
 In these cases, the semantic search would not work. We need a custom handler to understand the user's intent and then query the database to fetch the relevant records by using the keywords in the user query.
 
 ## Using Database Plugin to handle specific queries
 
-To support the above use cases, we can use a database plugin to handle specific scenarios that require more than just semantic search. The database plugin will have functions  to support the following operations:
+To support the above use cases, we can use a database plugin to handle specific scenarios that require more than just semantic search. The database plugin will have functions to support the following operations:
 
 - **Filtering**: For example, if the user asks for the best bikes for mountain biking under $1000, the tool can filter the database records based on the specified criteria (e.g. type of bike and price range).
 - **Aggregation**: If the user wants to see the top-selling bikes in the last six months, the tool can aggregate sales data and return the relevant records.
@@ -80,7 +82,7 @@ The following functions are available to you to help answer the user queries -
 - **get_bikes_by_type**: Returns a list of bikes based on the type of bike and price range.
 - **get_top_selling_bikes**: Returns the top selling bikes in the last 6 months.
 
-````
+```
 
 **How does the LLM know when to use the database plugin ?**
 
@@ -93,7 +95,7 @@ The function name and the parameters should have good descriptive names so that 
 The LLM response will be in a standard format that includes the function name and the parameters to be passed to the database plugin. For example, if the user asks for the price of a bike, the LLM response will look like this -
 
 ```text
-   [user]: What is the price of the model Trek Domane SLR 7 ? 
+   [user]: What is the price of the model Trek Domane SLR 7 ?
 
    [assistant]: The price of the model Trek Domane SLR 7 is $500.
    {
@@ -123,7 +125,7 @@ You can find a .NET notebook on my [01-semantic-kernel-function-calling](https:/
 
 In this post, we looked at how the RAG (Retrieval-Augmented Generation) pattern can be extended using a database plugin to handle queries that go beyond what semantic search alone can manage. By using a database plugin, we could execute custom queries and retrieve more targeted data.
 
-The approach is not just limited to fetching data from a database. You can also use it to call external APIs or perform any other custom operations to fetch the relevant data.  
+The approach is not just limited to fetching data from a database. You can also use it to call external APIs or perform any other custom operations to fetch the relevant data.
 
 That said, this approach does come with some limitations. It only supports a fixed set of query types, and each new type requires adding a dedicated function to the plugin. This setup works well when the number of supported queries is small and clearly defined.
 
