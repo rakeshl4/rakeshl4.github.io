@@ -1,0 +1,86 @@
+# Extending RAG with Dynamic SQL Queries
+
+In my previous post [Extending RAG with database tools](https://binarytrails.com/posts/2025/05/rag-with-tools), I discussed how a Retrieval-Augmented Generation (RAG) system can be enhanced with plugins that handle specific queries using predefined functions. While this approach works well for a limited set of query types, it becomes difficult to scale as user queries become more diverse and complex. In this post, I’ll explore how we can use a plugin to generate dynamic SQL queries from natural language, enabling the AI assistant to answer a much broader range of questions.
+
+## Why do we need dynamic query generation?
+
+Let’s revisit the bike store example. Previously, we relied on a set of functions like `get_bike_price`, `get_bikes_by_type`, and `get_top_selling_bikes` to fetch data. But what if a user asks:
+
+```text
+[user]: Show me all electric bikes with a range over 50 miles, sorted by price descending, and only those available in stock.
+```
+
+Or:
+
+```text
+[user]: List the average price of mountain bikes grouped by brand for the last year.
+```
+
+It’s not practical to create a dedicated function for every possible query. Instead, we need a way for the AI to translate natural language requests into SQL queries on the fly.
+
+## Using a Natural Language to SQL Plugin
+
+To solve this, we can use a plugin that leverages an LLM to generate SQL queries dynamically. Here’s how the system prompt might look:
+
+```text
+You are an AI assistant for a bike store. You have access to the following database schema:
+
+Table: Bikes
+- id
+- name
+- type
+- brand
+- price
+- range
+- in_stock
+- created_at
+
+Table: Sales
+- id
+- bike_id
+- sold_at
+
+When a user asks a question, generate a valid SQL query to fetch the required data. Return the SQL and a brief explanation of what the query does.
+```
+
+**How does the LLM generate and use SQL?**
+
+When the user asks a question, the LLM:
+- Analyzes the user’s intent and required data.
+- Generates a SQL query based on the schema and user request.
+- Returns the SQL and an explanation.
+
+For example:
+
+```text
+[user]: Show me all electric bikes with a range over 50 miles, sorted by price descending, and only those available in stock.
+
+[assistant]: Here are the electric bikes with a range over 50 miles, sorted by price (high to low), and currently in stock.
+
+SQL:
+SELECT name, price, range FROM Bikes WHERE type = 'electric' AND range > 50 AND in_stock = 1 ORDER BY price DESC;
+```
+
+The application then executes the SQL against the database, fetches the results, and presents them to the user in a readable format (e.g., a table).
+
+## Sequence of Events
+
+Here’s how the flow works:
+
+**Step 1**: The user asks a question in natural language.
+**Step 2**: The LLM generates a SQL query and an explanation.
+**Step 3**: The application executes the SQL query against the database.
+**Step 4**: The results are returned to the LLM (if further reasoning is needed) or directly to the user.
+**Step 5**: The user receives the answer, often formatted as a table or summary.
+
+## See it in action:
+
+You can find a .NET notebook on my [02-semantic-kernel-dynamic-sql](https://github.com/rakeshl4/ai-examples/tree/main/02-semantic-kernel-dynamic-sql) that demonstrates natural language to SQL query generation using Semantic Kernel and Azure OpenAI. The notebook includes an in-memory database and shows how the plugin can handle a wide variety of queries without needing to write new functions for each one.
+
+## Conclusion
+
+By enabling dynamic SQL generation, we can make RAG systems much more flexible and powerful. The AI assistant can now answer a wide range of questions, limited only by the database schema and the LLM’s ability to generate correct SQL. This approach reduces the need for manual function creation and makes it easier to support new types of queries as user needs evolve.
+
+However, this method also introduces new challenges, such as ensuring the generated SQL is safe (avoiding SQL injection) and accurate. Careful validation and sandboxing are essential when executing dynamically generated queries.
+
+Dynamic query generation is a big step forward in making AI assistants more capable and adaptable for real-world data scenarios.
