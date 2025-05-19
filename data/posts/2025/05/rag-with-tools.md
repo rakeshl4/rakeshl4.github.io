@@ -115,6 +115,10 @@ Here is the sequence of events that will happen when the user asks for the price
 **Step 7**: The LLM generates a final response to the user based on the result from the database plugin.  
 **Step 8**: The user receives the formatted response, such as a table or summary, based on the query.
 
+## See it in action:
+
+You can find a .NET notebook on my [01-semantic-kernel-function-calling](https://github.com/rakeshl4/ai-examples/tree/main/01-semantic-kernel-function-calling) that demonstrates how function calling works using Semantic Kernel. The notebook includes an in-memory database to simulate the database plugin with functions to handle the specific queries.
+
 ## Conclusion
 
 In this post, we looked at how the RAG (Retrieval-Augmented Generation) pattern can be extended using a database plugin to handle queries that go beyond what semantic search alone can manage. By using a database plugin, we could execute custom queries and retrieve more targeted data.

@@ -141,13 +141,18 @@ Here is the sequence of events that will happen when the user asks for the price
 
 **Step 8**: The user receives the formatted response, such as a table or summary, based on the query.
 
+## See it in action:
+
+You can find a .NET notebook on my GitHub respository [01-semantic-kernel-function-calling](https://github.com/rakeshl4/ai-examples/tree/main/01-semantic-kernel-function-calling) that demonstrates how function calling works using Semantic Kernel. 
+
+The notebook example uses an in-memory database to simulate the database plugin with functions to handle the specific queries.
   
 ## Conclusion
 
-In this post, we looked at how the RAG (Retrieval-Augmented Generation) pattern can be extended using a database plugin to handle queries that go beyond what semantic search alone can manage. By using a database plugin, we could execute custom queries and retrieve more targeted data.
+In this post, we looked at how the RAG (Retrieval-Augmented Generation) pattern can be extended using a database plugin to handle queries that go beyond what semantic search alone can manage. 
 
-The approach is not just limited to fetching data from a database. You can also use it to call external APIs or perform any other custom operations to fetch the relevant data.  
+By using a database plugin, we could execute custom queries and retrieve more targeted data. The approach is not just limited to fetching data from a database. You can also use it to call external APIs or perform any other custom operations to fetch the relevant data.  
 
-That said, this approach does come with some limitations. It only supports a fixed set of query types, and each new type requires adding a dedicated function to the plugin. This setup works well when the number of supported queries is small and clearly defined.
+That said, this approach does come with some limitations. It only supports a fixed set of query types, and each new type requires adding a dedicated function to the plugin. 
 
-As the variety of user queries grows, this method becomes harder to scale. To address that, we will need a way to generate database queries dynamically based on the user’s input rather than relying on predefined functions.
+This setup works well when the number of supported queries is small and clearly defined. As the variety of user queries grows, this method becomes harder to scale. To address that, we will need a way to generate database queries dynamically based on the user’s input rather than relying on predefined functions.
