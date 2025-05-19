@@ -11,6 +11,7 @@ In my previous post [Extending RAG with database tools](https://binarytrails.com
 
 In this post, I’ll explore how we can use a plugin to generate dynamic SQL queries from natural language, enabling the AI assistant to answer a much broader range of questions.
 
+
 ## Why do we need dynamic query generation?
 
 Let’s revisit the bike store example - We relied on a set of functions like `get_bike_price`, `get_bikes_by_type`, and `get_top_selling_bikes` to fetch data. 
@@ -24,7 +25,6 @@ But what if a user asks:
 
 ```
 
-
 It’s not practical to create a dedicated function for every possible query. 
 Instead, we need a way for the AI to translate natural language requests into SQL queries on the fly.
 
@@ -33,64 +33,56 @@ Instead, we need a way for the AI to translate natural language requests into SQ
 To solve this, we can use a plugin that leverages an LLM to generate SQL queries dynamically. Here’s how the system prompt might look:
 
 ```text
-You are an AI assistant for a bike store. You have access to the following database schema:
+    You are an expert in SQL. Given a database schema and a natural language question, generate a valid SQL query that answers the question using only the provided schema.
 
-Table: Bikes
-- id
-- name
-- type
-- brand
-- price
-- range
-- in_stock
-- created_at
+    - Output only the SQL query as a string, with no explanations or extra text.
+    - If the question cannot be answered with the given schema, return: `SELECT NULL;`
+    - Ensure the query is syntactically correct and relevant to the question.
 
-Table: Sales
-- id
-- bike_id
-- sold_at
+    Schema and question will be provided below.
 
-When a user asks a question, generate a valid SQL query to fetch the required data. Return the SQL and a brief explanation of what the query does.
+    Schema: 
+    CREATE TABLE Products (
+        id INT PRIMARY KEY,
+        model_name VARCHAR(255),
+        description VARCHAR,
+        bike_type VARCHAR(50),
+        price DECIMAL(10, 2),
+        created_at DATETIME
+    );
+
+    Question: {question}
+    SQL Query:"; 
+
 ```
 
 **How does the LLM generate and use SQL?**
 
-When the user asks a question, the LLM:
-- Analyzes the user’s intent and required data.
-- Generates a SQL query based on the schema and user request.
-- Returns the SQL and an explanation.
-
-For example:
-
-```text
-[user]: Show me all electric bikes with a range over 50 miles, sorted by price descending, and only those available in stock.
-
-[assistant]: Here are the electric bikes with a range over 50 miles, sorted by price (high to low), and currently in stock.
-
-SQL:
-SELECT name, price, range FROM Bikes WHERE type = 'electric' AND range > 50 AND in_stock = 1 ORDER BY price DESC;
-```
-
-The application then executes the SQL against the database, fetches the results, and presents them to the user in a readable format (e.g., a table).
-
-## Sequence of Events
-
 Here’s how the flow works:
 
 **Step 1**: The user asks a question in natural language.
-**Step 2**: The LLM generates a SQL query and an explanation.
-**Step 3**: The application executes the SQL query against the database.
-**Step 4**: The results are returned to the LLM (if further reasoning is needed) or directly to the user.
-**Step 5**: The user receives the answer, often formatted as a table or summary.
+
+**Step 2**: The LLM generates a plan to use the SQL plugin for generating the SQL query.
+
+**Step 3**: The LLM generates the SQL query based on the schema and user request.
+
+**Step 4**: The application executes the SQL against the database, fetches the results, and presents them to the user in a readable format (e.g., a table).
 
 ## See it in action:
 
-You can find a .NET notebook on my [02-semantic-kernel-dynamic-sql](https://github.com/rakeshl4/ai-examples/tree/main/02-semantic-kernel-dynamic-sql) that demonstrates natural language to SQL query generation using Semantic Kernel and Azure OpenAI. The notebook includes an in-memory database and shows how the plugin can handle a wide variety of queries without needing to write new functions for each one.
+You can find a .NET notebook on my [02-semantic-kernel-dynamic-sql-query](https://github.com/rakeshl4/ai-examples/tree/main/02-semantic-kernel-dynamic-sql-query) that demonstrates natural language to SQL query generation using Semantic Kernel and Azure OpenAI.
+
+## Adding Security and Validation
+
+To ensure the generated SQL is safe and valid, we can implement several strategies:
+
+1. **Sandboxing**: Execute the SQL in a controlled environment to limit its impact on the database.
+2. **Limited Schema Access**: Restrict the LLM’s access to only the necessary tables and columns in the database schema.
+3. **Validation**: Validate the generated SQL against a set of rules or patterns to ensure it adheres to expected formats.
+4. **Logging and Monitoring**: Log all generated SQL queries and monitor for unusual patterns or potential abuse.
 
 ## Conclusion
 
 By enabling dynamic SQL generation, we can make RAG systems much more flexible and powerful. The AI assistant can now answer a wide range of questions, limited only by the database schema and the LLM’s ability to generate correct SQL. This approach reduces the need for manual function creation and makes it easier to support new types of queries as user needs evolve.
 
 However, this method also introduces new challenges, such as ensuring the generated SQL is safe (avoiding SQL injection) and accurate. Careful validation and sandboxing are essential when executing dynamically generated queries.
-
-Dynamic query generation is a big step forward in making AI assistants more capable and adaptable for real-world data scenarios.
