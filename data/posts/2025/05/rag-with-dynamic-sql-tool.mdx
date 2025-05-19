@@ -3,7 +3,7 @@ title: Extending RAG with Dynamic SQL Queries
 date: '2025-05-18'
 tags: ['Tools', 'RAG', 'OpenAI', 'LLM', 'Sql']
 draft: false
-images: ['/static/images/2025-05-12/2025051201.png']
+images: ['/static/images/2025-05-18/design.png']
 summary: In my previous post using tools, I discussed how a Retrieval-Augmented Generation (RAG) system can be enhanced with plugins that handle specific queries using predefined functions. While this approach works well for a limited set of query types, it becomes difficult to scale as user queries become more diverse and complex. In this post, I’ll explore how we can use a plugin to generate dynamic SQL queries from natural language, enabling the AI assistant to answer a much broader range of questions.
 ---
 
@@ -59,6 +59,9 @@ To solve this, we can use a plugin that leverages an LLM to generate SQL queries
 **How does the LLM generate and use SQL?**
 
 Here’s how the flow works:
+
+![design](/static/images/2025-05-18/design.png)
+
 
 **Step 1**: The user asks a question in natural language.
 
