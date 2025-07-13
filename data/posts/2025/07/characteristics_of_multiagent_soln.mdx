@@ -1,7 +1,7 @@
 ---
 title: Building Smarter AI Workflows Using Multi-Agent Solutions
-date: '2025-07-04'
-tags: ['OpenAI', 'LLM', 'Agent', 'Multiagent']
+date: '2025-07-14'
+tags: ['OpenAI', 'LLM', 'AI Agent', 'Multiagent']
 draft: false
 images: ['/static/images/2025-05-25/design.png']
 summary: While a single agent can effectively handle tasks within a specific domain, it often falls short when dealing with scenarios that involve multiple data sources, actions, or decision points. In this post, I will explore the building blocks of multi-agent solutions and why they’re important for creating smarter, and more scalable AI workflows.
@@ -72,13 +72,13 @@ In this case, we can have the following agents:
 3.  **Order Agent**: The agent handles the order submission to the warehouse. It would connect to one or more APIs to submit the order and return the order status.
 4.  **Notification Agent**: The agent sends a confirmation email to the customer.
 
-          ![design](/static/images/2025-07-04/multi-agent-design.jpg)
+          ![design](/static/images/2025-07-14/multi-agent-design.jpg)
 
 ## Key Characteristics of a Multi-Agent Solution
 
 ### 1. Workflow Orchestration
 
-          ![design](/static/images/2025-07-04/orchestration-pattern.png)
+          ![design](/static/images/2025-07-14/orchestration-pattern.png)
 
 When you have multiple agents working together, you still need control on how the tasks are executed and this is where orchestration patterns are neeeded.
 
@@ -98,7 +98,7 @@ A voice recognition agent transcribes speech → hands off to a language underst
 
 **Planner-Manager-Executor Pattern**: In this pattern, a planner agent decides which agents to execute based on the current state and the goals of the system.
 
-          ![design](/static/images/2025-07-04/planner-executor-pattern.png)
+          ![design](/static/images/2025-07-14/planner-executor-pattern.png)
 
 The manager agent coordinates the execution of the agents, and the executor agents perform the actual tasks.
 
