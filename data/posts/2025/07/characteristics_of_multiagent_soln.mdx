@@ -1,10 +1,15 @@
-# Building Smarter AI Workflows Using Multi-Agent Solutions
+---
+title: Building Smarter AI Workflows Using Multi-Agent Solutions
+date: '2025-07-04'
+tags: ['OpenAI', 'LLM', 'Agent', 'Multiagent']
+draft: false
+images: ['/static/images/2025-05-25/design.png']
+summary: While a single agent can effectively handle tasks within a specific domain, it often falls short when dealing with scenarios that involve multiple data sources, actions, or decision points. In this post, I will explore the building blocks of multi-agent solutions and why they’re important for creating smarter, and more scalable AI workflows.
+---
 
 In my previous posts, I discussed how tools and plugins can extend the capabilities of AI applications to solve real-world problems such as building a product assistant that answers customer queries using Retrieval-Augmented Generation (RAG) and database plugins.
 
 While a single agent can effectively handle tasks within a specific domain, it often falls short when dealing with scenarios that involve multiple data sources, actions, or decision points.
-
-This is where multi-agent solutions are required. Multi-agent systems break down complex tasks into smaller, manageable components, each handled by a specialized agent. Each agent focuses on a subset of the overall task and collaborates with others to achieve the final goal.
 
 In this post, I will explore the building blocks of multi-agent solutions and why they’re important for creating smarter, and more scalable AI workflows using the bike store assistant as an example.
 
@@ -12,7 +17,7 @@ In this post, I will explore the building blocks of multi-agent solutions and wh
 
 You have come across many definitions of an AI agent, but let’s keep it simple.
 
-***An AI agent is a self-contained software component that can act autonomously or semi-autonomously to achieve specific goals.***
+**_An AI agent is a self-contained software component that can act autonomously or semi-autonomously to achieve specific goals._**
 
 - **Self-contained** means it has the knowledge, tools, and decision-making capabilities to perform its tasks.
 - **Semi-autonomous** means it can collaborate with other agents or humans to accomplish more complex objectives.
@@ -20,8 +25,8 @@ You have come across many definitions of an AI agent, but let’s keep it simple
 At its core, an agent typically includes three components:
 
 - **Model (LLM)**: Understands and processes natural language. It is used for reasoning about information and making decisions.
-- **:Instructions:**: Define the agent’s goals, behavior, and constraints.
-- **:Tools:**: Enable agents to retrieve knowledge or take action (e.g., querying a database, calling an API)
+- **Instructions:** Define the agent’s goals, behavior, and constraints.
+- **Tools:** Enable agents to retrieve knowledge or take action (e.g., querying a database, calling an API)
 
 The use of LLMs (Large Language Models) is not mandatory for an agent. An agent can be powered by a rule-based system, or even a simple script that follows predefined instructions.
 
@@ -36,7 +41,7 @@ Consider an example of a customer support assistant for a bike store. The assist
 
 When the user wants to place an order for a bike, the assistant needs to:
 
-1. **Understand Customer Query**:Interpret the user’s request and decide on the next steps.
+1. **Understand Customer Query**: Interpret the user’s request and decide on the next steps.
 2. **Collect Order Information**: The assistant gathers all necessary details, such as bike model, customer information, and delivery preferences.
 3. **Check Inventory**: Check if the requested bike is in stock.
 4. **Process Payment**: Process the payment using a secure payment gateway.
@@ -49,33 +54,37 @@ If a single agent were responsible for all these tasks, it would need to have ac
 
 This can soon lead to a few issues:
 
-**Performance**: The agent becomes bloated with instructions, tools, and context required for the multiple steps, increasing both the cognitive and technical load. It makes it harder for the agent to reason effectively and make decisions.
-**Complexity**: It also increases the complexity of code, making it harder to maintain and update.
-**Flexibility**: It limits the ability to experiment with new tools or workflows.
-**Testing**: The components are tightly coupled, which makes it hard to isolate and test individual steps.
+- **Performance**: The agent becomes bloated with instructions, tools, and context required for the multiple steps, increasing both the cognitive and technical load. It makes it harder for the agent to reason effectively and make decisions.
+- **Complexity**: It also increases the complexity of code, making it harder to maintain and update.
+- **Flexibility**: It limits the ability to experiment with new tools or workflows.
+- **Testing**: The components are tightly coupled, which makes it hard to isolate and test individual steps.
 
 ## A Better Approach: Multi Agents
 
-This is where multi-agent solutions are required. Multi-agent systems break down complex tasks into smaller, manageable components, each handled by a specialized agent. Each agent focuses on a subset of the overall task and collaborates with others to achieve the final goal. 
+This is where multi-agent solutions are required. Multi-agent systems break down complex tasks into smaller, manageable components, each handled by a specialized agent. Each agent focuses on a subset of the overall task and collaborates with others to achieve the final goal.
 
 This makes the system more modular, scalable, and easier to maintain.
 
 In this case, we can have the following agents:
 
-1. **Inventory Agent**: Checks if the bike is in stock. It would connect to the inventory database and return the stock status.
-2. **Payment Agent**:  Processes the payment using a payment gateway. It would handle the payment logic and return the payment status.
-3. **Order Agent**: The agent handles the order submission to the warehouse. It would connect to one or more APIs to submit the order and return the order status.
-4. **Notification Agent**: The agent sends a confirmation email to the customer.
+1.  **Inventory Agent**: Checks if the bike is in stock. It would connect to the inventory database and return the stock status.
+2.  **Payment Agent**: Processes the payment using a payment gateway. It would handle the payment logic and return the payment status.
+3.  **Order Agent**: The agent handles the order submission to the warehouse. It would connect to one or more APIs to submit the order and return the order status.
+4.  **Notification Agent**: The agent sends a confirmation email to the customer.
+
+          ![design](/static/images/2025-07-04/multi-agent-design.jpg)
 
 ## Key Characteristics of a Multi-Agent Solution
 
 ### 1. Workflow Orchestration
 
-When you have multiple agents working together, you still need control on how the tasks are executed and this is where orchestration patterns are neeeded. 
+          ![design](/static/images/2025-07-04/orchestration-pattern.png)
+
+When you have multiple agents working together, you still need control on how the tasks are executed and this is where orchestration patterns are neeeded.
 
 Let us look at some common orchestration patterns -
 
-**Sequential Pattern**: In this pattern, agents are executed one after the other. The output of one agent is passed as input to the next agent. This is useful when the tasks are dependent on each other.  
+**Sequential Pattern**: In this pattern, agents are executed one after the other. The output of one agent is passed as input to the next agent. This is useful when the tasks are dependent on each other.
 
 Document Processing Pipeline - Agent A extracts text → Agent B summarizes it → Agent C translates it.
 
@@ -87,7 +96,13 @@ Customer Support Chatbots - One agent handles billing questions while another ha
 
 A voice recognition agent transcribes speech → hands off to a language understanding agent → which then passes it to a task execution agent.
 
-**Planner-Manager-Executor Pattern**: In this pattern, a planner agent decides which agents to execute based on the current state and the goals of the system. The manager agent coordinates the execution of the agents, and the executor agents perform the actual tasks. This pattern is useful for complex systems where multiple agents need to work together to achieve a common goal.
+**Planner-Manager-Executor Pattern**: In this pattern, a planner agent decides which agents to execute based on the current state and the goals of the system.
+
+          ![design](/static/images/2025-07-04/planner-executor-pattern.png)
+
+The manager agent coordinates the execution of the agents, and the executor agents perform the actual tasks.
+
+This pattern is useful for complex systems where multiple agents need to work together to achieve a common goal.
 
 ### 2. Structured Output
 
@@ -105,23 +120,6 @@ For example, if the **Inventory Agent** returns the stock status, it should do s
   "in_stock": true,
   "quantity_available": 5
 }
-
-```json
-{
-  "bike_model": "Mountain Bike",
-  "in_stock": true,
-  "quantity_available": 5
-}
-```
-
-In this case, the **Inventory Agent** might return a response like:
-
-```json
-{
-  "bike_model": "Mountain Bike",
-  "in_stock": true,
-  "quantity_available": 5
-}
 ```
 
 ### 3. State and Context Management
@@ -130,8 +128,10 @@ Each agent is responsible for maintaining its own state and context, which inclu
 
 For example, the **Order Agent** might store information such as the customer’s order details, preferences, current task status, and any intermediate results required to fulfill the order.
 
-Apart from the agent memory, a multi-agent system also requires a mechanism for sharing context across agents. A shared context ensures that all agents are aware of important changes or events that impact the overall workflow. For instance, if the customer cancelled their order, all agents should be aware of this change and adjust their actions accordingly.
-  
+Apart from the agent memory, a multi-agent system also requires a mechanism for sharing context across agents. A shared context ensures that all agents are aware of important changes or events that impact the overall workflow.
+
+For instance, if the customer cancelled their order, all agents should be aware of this change and adjust their actions accordingly.
+
 ### 4. Security and Privacy
 
 Agents can perform actions on behalf of users, which raises security and privacy concerns. This can be controlled by implementing access controls and ensuring that agents only have access to the information and tools they need to perform their tasks.
@@ -148,7 +148,7 @@ These agents should be designed to:
 
 - Pause and resume tasks.
 - Work in the background, without blocking other actions.
-- Handle timeouts or failures. If there is a failure, the agent should be able to retry the task or escalate it to a human operator.
+- Handle timeouts or failures gracefully. If there is a failure, the agent should be able to retry the task or escalate it to a human operator.
 
 ### 6. Interoperability in the Agent Ecosystem
 
@@ -162,7 +162,7 @@ It is important to have visibility into the workflow execution and the interacti
 
 ## Conclusion
 
-Multi-agent solutions are useful for building complex AI applications. But they also come with their own set of challenges, such as orchestration, state management, security, and debugging.
+Multi-agent solutions are useful for building complex AI applications, but they also come with their own set of challenges, such as orchestration, state management, security, and debugging.
 Your design must focus on all the key characteristics discussed in this post to ensure that you have control over the workflow execution and the interactions between agents.
 
 You should move towards a multi-agent solution only when you are sure that a single agent cannot handle the complexity of the task.
