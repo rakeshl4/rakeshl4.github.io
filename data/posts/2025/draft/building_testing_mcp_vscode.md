@@ -1,10 +1,10 @@
 ---
-title: Building and Testing MCP Server in VS Code
+title: Creating and Testing MCP Servers with GitHub Copilot
 date: '2025-09-11'
 tags: ['OpenAI', 'LLM', 'MCP', 'VSCode']
 draft: false
 images: ['/static/images/2025-07-14/planner-executor-pattern.png']
-summary: Tools are great for extending AI and GenAI applications, but integrating each tool with every model or data source quickly leads to an N x N integration problem. With MCP, you get easier scaling, simpler maintenance, and a consistent protocol for exposing capabilities.
+summary: While tools extend GenAI application capabilities, the Model Context Protocol (MCP) solves the M×N integration problem by providing a standard interface that works across all models. In this post, we'll see how easy it is to set up a local MCP server and interact with it directly from GitHub Copilot Chat in VS Code.
 ---
 
 Tools are useful to extend the capabilities of GenAI applications. We discussed how the tool calls are executed in my previous post [Integrating external tools with Large Language Models](https://binarytrails.com/posts/2024/06/02/virtual-assistants).
