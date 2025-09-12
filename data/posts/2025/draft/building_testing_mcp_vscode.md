@@ -1,34 +1,26 @@
 ---
-title: Creating and Testing MCP Servers with GitHub Copilot
+title: Building MCP Servers with GitHub Copilot
 date: '2025-09-11'
 tags: ['OpenAI', 'LLM', 'MCP', 'VSCode']
 draft: false
-images: ['/static/images/2025-07-14/planner-executor-pattern.png']
-summary: While tools extend GenAI application capabilities, the Model Context Protocol (MCP) solves the M×N integration problem by providing a standard interface that works across all models. In this post, we'll see how easy it is to set up a local MCP server and interact with it directly from GitHub Copilot Chat in VS Code.
+images: ['/static/images/2025-09-11/mcp-components.png']
+summary: While tools extend GenAI application capabilities by allowing models to call external functions they are typically scoped to a specific model or framework. MCP solves this by providing a standard interface that simplifies integration across models and tools. In this post, we will see how easy it is to set up a local MCP server and interact with it directly from GitHub Copilot Chat in VS Code.
 ---
 
-Tools are useful to extend the capabilities of GenAI applications. We discussed how the tool calls are executed in my previous post [Integrating external tools with Large Language Models](https://binarytrails.com/posts/2024/06/02/virtual-assistants).
+While tools extend GenAI application capabilities by allowing models to call external functions they are typically scoped to a specific model or framework. MCP solves this by providing a standard interface that simplifies integration across models and tools.
+
+In this post, we will see how easy it is to set up a local MCP server and interact with it directly from GitHub Copilot Chat in VS Code.
+
+We discussed how the tool calls are executed in my previous post [Integrating external tools with Large Language Models](https://binarytrails.com/posts/2024/06/02/virtual-assistants).
 
 Your AI application orchestrates the tool call using frameworks like LangChain, Semantic Kernel, or Azure AI Agent Service. The tool call orchestration will vary based on the the model and the tooling interface. This means if you switch to a different model you need to rework the tool call orchestration.
 
-If you have **M** models and **N** tools, you end up with **M x N** integrations to maintain. And more code means more bugs, more maintenance, and more complexity.
+If you have **M** models and **N** tools, you end up with **M x N** integrations to maintain. And more code means more maintenance, and probably more complexity.
 This is known as the **M x N integration problem**.
 
 ![design](/static/images/2025-09-11/mcp-integrations.png)
 
 **MCP** ([Model Context Protocol](https://modelcontextprotocol.io/docs/getting-started/intro)) solves this by providing a standard interface for tools that all models can connect to. And hence, you only need **M + N** connections.
-
-The key benefits of using MCP include:
-
-- MCP provides a growing catalog of pre-built integrations that your AI application can connect to directly. This significantly reduces setup time and complexity, allowing you to quickly add new capabilities or swap out tools with minimal code changes.
-
-  For a list of available servers, see [Model Context Protocol servers](https://github.com/modelcontextprotocol/servers).
-
-- With MCP, both models and tools only need to implement the MCP interface once. This approach avoids brittle, one-off custom solutions and promotes the reuse of integrations across different projects and teams.
-
-- MCP enables you to build and maintain integrations using a consistent, scalable approach. As vendors update their APIs, MCP’s abstraction layer is also updated by the maintainers to ensure that integrations remain stable and reliable.
-
-- You can implement security policies, monitor usage, and ensure compliance from a single point, rather than managing security for each individual tool integration.
 
 ## MCP Architecture
 
@@ -340,13 +332,17 @@ You can host and use the MCP server you built to power your AI applications. To 
 For more details about MCP, check out these popular blogs and resources:
 
 - [Introducing MCP: A Standard for AI Tooling](https://modelcontextprotocol.io/docs/getting-started/intro)
-- [How MCP Simplifies AI Integrations](https://modelcontextprotocol.io/docs/overview/overview)
-- [Building Your First MCP Server](https://modelcontextprotocol.io/docs/server/server-quickstart)
+- [MCP C# SDK](https://github.com/modelcontextprotocol/csharp-sdk)
+- [Integrate MCP Tools with Azure AI Agents](https://learn.microsoft.com/en-us/training/modules/connect-agent-to-mcp-tools/?source=recommendations)
 
 ---
 
 ## Conclusion
 
-By adopting MCP, you can future-proof your AI applications, simplify integrations, and unlock new capabilities with less effort. Stay tuned for a hands-on demo of building and running an MCP service, and testing it from the VS Code MCP tool.
+MCP adds significant value by simplifying and scaling how AI applications connect with external tools and data sources:
 
----
+MCP provides a growing catalog of ready-to-use integrations that your AI application can connect to directly. This reduces setup time and complexity, allowing you to quickly add new capabilities or swap out tools with minimal code changes.
+
+For a list of available servers, see [Model Context Protocol servers](https://github.com/modelcontextprotocol/servers).
+
+With MCP, you not only extend your AI application but also give it a robust, future-proof foundation to grow with.
