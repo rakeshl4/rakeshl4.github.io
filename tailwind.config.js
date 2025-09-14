@@ -1,5 +1,7 @@
 // @ts-nocheck
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const defaultTheme = require('tailwindcss/defaultTheme')
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const colors = require('tailwindcss/colors')
 
 /** @type {import("tailwindcss/types").Config } */
@@ -23,6 +25,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['var(--font-inter)', ...defaultTheme.fontFamily.sans],
+        'space-grotesk': ['var(--font-space-grotesk)', ...defaultTheme.fontFamily.sans],
       },
       colors: {
         primary: colors.indigo,
@@ -72,5 +75,6 @@ module.exports = {
       }),
     },
   },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require('@tailwindcss/forms'), require('@tailwindcss/typography')],
 }
