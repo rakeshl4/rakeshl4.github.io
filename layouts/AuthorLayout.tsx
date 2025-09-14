@@ -29,11 +29,11 @@ export default function AuthorLayout({ children, content }: Props) {
         {/* About header removed */}
         <div className="items-start space-y-8 pt-8 xl:grid xl:grid-cols-12 xl:gap-x-8 xl:space-y-0">
           {/* Profile Card */}
-          <div className="relative flex transform flex-col items-center overflow-hidden bg-white/80 p-6 pt-8 shadow-xl backdrop-blur-sm transition-all duration-300 hover:shadow-2xl xl:col-span-3 dark:bg-gray-900/80">
+          <div className="relative flex transform flex-col items-center justify-center overflow-hidden bg-white/80 p-6 pt-8 text-center shadow-xl backdrop-blur-sm transition-all duration-300 hover:shadow-2xl xl:col-span-3 dark:bg-gray-900/80">
             {/* Card decorative elements */}
             <div className="absolute -top-12 -right-12 h-24 w-24 rounded-full bg-blue-100 opacity-20 dark:bg-blue-900"></div>
             <div className="absolute -bottom-12 -left-12 h-24 w-24 rounded-full bg-blue-200 opacity-20 dark:bg-blue-700"></div>
-            <div className="relative">
+            <div className="relative flex w-full justify-center">
               {avatar && (
                 <Image
                   src={avatar}
@@ -44,12 +44,16 @@ export default function AuthorLayout({ children, content }: Props) {
                 />
               )}
             </div>
-            <h3 className="pt-4 pb-1 text-xl leading-8 font-bold tracking-tight text-blue-600 dark:text-blue-400">
+            <h3 className="w-full pt-4 pb-1 text-center text-xl leading-8 font-bold tracking-tight text-black dark:text-white">
               {name}
             </h3>
-            <div className="text-sm font-medium text-gray-700 dark:text-gray-300">{occupation}</div>
-            <div className="text-sm text-gray-500 dark:text-gray-400">{company}</div>
-            <div className="flex items-center space-x-3 pt-6">
+            <div className="w-full text-center text-sm font-medium text-gray-700 dark:text-gray-300">
+              {occupation}
+            </div>
+            <div className="w-full text-center text-sm text-gray-500 dark:text-gray-400">
+              {company}
+            </div>
+            <div className="flex w-full items-center justify-center space-x-3 pt-6">
               {email && <SocialIcon kind="mail" href={`mailto:${email}`} size={5} />}
               {github && <SocialIcon kind="github" href={github} size={5} />}
               {linkedin && <SocialIcon kind="linkedin" href={linkedin} size={5} />}
