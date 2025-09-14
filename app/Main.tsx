@@ -37,11 +37,11 @@ export default function Home({ posts }) {
                               {title}
                             </Link>
                           </h2>
-                          <div className="flex flex-col space-y-2 mt-2">
+                          <div className="mt-2 flex flex-col space-y-2">
                             <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
                               <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
                             </span>
-                            <div className="flex flex-wrap -ml-0">
+                            <div className="-ml-0 flex flex-wrap">
                               {tags.map((tag) => (
                                 <Tag key={tag} text={tag} />
                               ))}
@@ -55,7 +55,7 @@ export default function Home({ posts }) {
                       <div className="text-base leading-6 font-medium">
                         <Link
                           href={`/posts/${slug}`}
-                          className="inline-flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-500 dark:hover:text-primary-400 font-medium"
+                          className="text-primary-600 hover:text-primary-700 dark:text-primary-500 dark:hover:text-primary-400 inline-flex items-center font-medium"
                           aria-label={`Read more: "${title}"`}
                         >
                           Read more &rarr;
@@ -73,7 +73,7 @@ export default function Home({ posts }) {
         <div className="flex justify-end text-base leading-6 font-medium">
           <Link
             href="/blog"
-            className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-800 dark:hover:bg-primary-700 transition-colors duration-200"
+            className="bg-primary-600 hover:bg-primary-700 dark:bg-primary-800 dark:hover:bg-primary-700 inline-flex items-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm transition-colors duration-200"
             aria-label="All posts"
           >
             All Posts &rarr;

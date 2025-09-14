@@ -53,7 +53,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
               <div>
                 <PageTitle>{title}</PageTitle>
               </div>
-              <div className="flex items-center justify-center mt-2 text-sm text-gray-500 dark:text-gray-400">
+              <div className="mt-2 flex items-center justify-center text-sm text-gray-500 dark:text-gray-400">
                 <time dateTime={date}>
                   {new Date(date).toLocaleDateString(siteMetadata.locale, postDateTemplate)}
                 </time>
@@ -63,11 +63,11 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
           <div className="grid-rows-[auto_1fr] divide-y divide-gray-200 pb-8 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0 dark:divide-gray-700">
             <dl className="pt-6 pb-4 xl:dark:border-gray-700">
               {/* Left navigation column - for tags and metadata */}
-              <div className="xl:pt-8 pb-4">
+              <div className="pb-4 xl:pt-8">
                 <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
                   Tags
                 </h2>
-                <div className="flex flex-wrap mt-2">
+                <div className="mt-2 flex flex-wrap">
                   {tags?.map((tag) => <Tag key={tag} text={tag} />)}
                 </div>
               </div>

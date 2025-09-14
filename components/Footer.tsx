@@ -18,9 +18,7 @@ export default function Footer() {
           <Link href="/">{siteMetadata.title}</Link>
         </div>
         <div className="mb-8 text-sm text-gray-500 dark:text-gray-400">
-          <Link href="/">
-            BinaryTrails
-          </Link>
+          <Link href="/">BinaryTrails</Link>
         </div>
       </div>
     </footer>

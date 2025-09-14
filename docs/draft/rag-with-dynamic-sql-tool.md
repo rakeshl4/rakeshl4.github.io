@@ -4,7 +4,7 @@ In my previous post [Extending RAG with database tools](https://binarytrails.com
 
 ## Why do we need dynamic query generation?
 
-Let’s revisit the bike store example - We relied on a set of functions like `get_bike_price`, `get_bikes_by_type`, and `get_top_selling_bikes` to fetch data. 
+Let’s revisit the bike store example - We relied on a set of functions like `get_bike_price`, `get_bikes_by_type`, and `get_top_selling_bikes` to fetch data.
 
 But what if a user asks:
 
@@ -15,7 +15,7 @@ But what if a user asks:
 
 ```
 
-It’s not practical to create a dedicated function for every possible query. 
+It’s not practical to create a dedicated function for every possible query.
 Instead, we need a way for the AI to translate natural language requests into SQL queries on the fly.
 
 ## Using a Natural Language to SQL Plugin
@@ -31,7 +31,7 @@ To solve this, we can use a plugin that leverages an LLM to generate SQL queries
 
     Schema and question will be provided below.
 
-    Schema: 
+    Schema:
     CREATE TABLE Products (
         id INT PRIMARY KEY,
         model_name VARCHAR(255),
@@ -42,7 +42,7 @@ To solve this, we can use a plugin that leverages an LLM to generate SQL queries
     );
 
     Question: {question}
-    SQL Query:"; 
+    SQL Query:";
 
 ```
 
