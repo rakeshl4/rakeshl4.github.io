@@ -36,6 +36,37 @@ module.exports = {
         70: '70',
         80: '80',
       },
+      keyframes: {
+        blob: {
+          '0%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
+          '33%': {
+            transform: 'translate(30px, -50px) scale(1.1)',
+          },
+          '66%': {
+            transform: 'translate(-20px, 20px) scale(0.9)',
+          },
+          '100%': {
+            transform: 'translate(0px, 0px) scale(1)',
+          },
+        },
+      },
+      animation: {
+        blob: 'blob 20s infinite',
+      },
+      backgroundImage: {
+        'grid-pattern-light':
+          'linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px)',
+        'grid-pattern-dark':
+          'linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px)',
+        'dots-pattern-light': 'radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px)',
+        'dots-pattern-dark': 'radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px)',
+      },
+      backgroundSize: {
+        'grid-pattern': '40px 40px',
+        'dots-pattern': '20px 20px',
+      },
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {

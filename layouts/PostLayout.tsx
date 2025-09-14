@@ -15,7 +15,6 @@ const discussUrl = (path) =>
   `https://mobile.twitter.com/search?q=${encodeURIComponent(`${siteMetadata.siteUrl}/${path}`)}`
 
 const postDateTemplate: Intl.DateTimeFormatOptions = {
-  weekday: 'long',
   year: 'numeric',
   month: 'long',
   day: 'numeric',
