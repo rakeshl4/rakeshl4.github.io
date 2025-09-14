@@ -2,7 +2,6 @@ import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
-import NewsletterForm from 'pliny/ui/NewsletterForm'
 
 const MAX_DISPLAY = 5
 
@@ -72,17 +71,12 @@ export default function Home({ posts }) {
       {posts.length > MAX_DISPLAY && (
         <div className="flex justify-end text-base leading-6 font-medium">
           <Link
-            href="/blog"
-            className="bg-primary-600 hover:bg-primary-700 dark:bg-primary-800 dark:hover:bg-primary-700 inline-flex items-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm transition-colors duration-200"
+            href="/posts"
+            className="text-primary-600 hover:text-primary-700 dark:text-primary-500 dark:hover:text-primary-400 border-primary-600 dark:border-primary-500 inline-flex items-center rounded-md border px-4 py-2 text-base font-medium transition-colors duration-200"
             aria-label="All posts"
           >
             All Posts &rarr;
           </Link>
-        </div>
-      )}
-      {siteMetadata.newsletter?.provider && (
-        <div className="flex items-center justify-center pt-4">
-          <NewsletterForm />
         </div>
       )}
     </>
