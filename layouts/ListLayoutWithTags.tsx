@@ -137,13 +137,13 @@ export default function ListLayoutWithTags({
                               {title}
                             </Link>
                           </h2>
-                          <div className="flex flex-col space-y-2 mt-2">
+                          <div className="mt-2 flex flex-col space-y-2">
                             <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
                               <time dateTime={date} suppressHydrationWarning>
                                 {formatDate(date, siteMetadata.locale)}
                               </time>
                             </span>
-                            <div className="flex flex-wrap -ml-0">
+                            <div className="-ml-0 flex flex-wrap">
                               {tags?.map((tag) => <Tag key={tag} text={tag} />)}
                             </div>
                           </div>
