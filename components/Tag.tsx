@@ -2,14 +2,20 @@ import Link from 'next/link'
 import { slug } from 'github-slugger'
 interface Props {
   text: string
+  isLink?: boolean // New prop to control whether to render as a Link or span
 }
 
-const Tag = ({ text }: Props) => {
+const Tag = ({ text, isLink = true }: Props) => {
+  const tagClassName =
+    'hover:bg-primary-100 hover:text-primary-700 dark:hover:bg-primary-900 dark:hover:text-primary-300 mr-2 mb-2 inline-block rounded-md bg-gray-100 px-2 py-0.5 text-xs text-gray-600 transition-colors duration-200 dark:bg-gray-800 dark:text-gray-300'
+
+  // If isLink is false, render as a span instead of a Link
+  if (!isLink) {
+    return <span className={tagClassName}>{text.split(' ').join('-')}</span>
+  }
+
   return (
-    <Link
-      href={`/tags/${slug(text)}`}
-      className="hover:bg-primary-100 hover:text-primary-700 dark:hover:bg-primary-900 dark:hover:text-primary-300 mr-2 mb-2 inline-block rounded-md bg-gray-100 px-2 py-0.5 text-xs text-gray-600 transition-colors duration-200 dark:bg-gray-800 dark:text-gray-300"
-    >
+    <Link href={`/tags/${slug(text)}`} className={tagClassName}>
       {text.split(' ').join('-')}
     </Link>
   )

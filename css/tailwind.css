@@ -4,6 +4,15 @@
 @source '../node_modules/pliny';
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* Custom animation delay classes */
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
 /* Core theme configuration */
 @theme {
   /* Font families */
@@ -16,13 +25,13 @@
   --color-primary-100: oklch(0.929 0.052 233.064);
   --color-primary-200: oklch(0.885 0.092 232.475);
   --color-primary-300: oklch(0.828 0.138 231.793);
-  --color-primary-400: oklch(0.700 0.187 228.945);
-  --color-primary-500: oklch(0.580 0.230 227.001); /* Medium-dark blue */
-  --color-primary-600: oklch(0.520 0.235 226.242);
-  --color-primary-700: oklch(0.450 0.212 225.092);
-  --color-primary-800: oklch(0.380 0.178 224.208);
-  --color-primary-900: oklch(0.320 0.147 223.541);
-  --color-primary-950: oklch(0.200 0.124 222.695); /* Very dark blue */
+  --color-primary-400: oklch(0.7 0.187 228.945);
+  --color-primary-500: oklch(0.58 0.23 227.001); /* Medium-dark blue */
+  --color-primary-600: oklch(0.52 0.235 226.242);
+  --color-primary-700: oklch(0.45 0.212 225.092);
+  --color-primary-800: oklch(0.38 0.178 224.208);
+  --color-primary-900: oklch(0.32 0.147 223.541);
+  --color-primary-950: oklch(0.2 0.124 222.695); /* Very dark blue */
 
   --color-gray-50: oklch(0.985 0.002 247.839);
   --color-gray-100: oklch(0.967 0.003 264.542);

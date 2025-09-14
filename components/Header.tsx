@@ -8,7 +8,7 @@ import SearchButton from './SearchButton'
 
 const Header = () => {
   let headerClass =
-    'flex items-center w-full bg-white dark:bg-gray-950 justify-between py-6 border-b border-gray-200 dark:border-gray-800'
+    'flex items-center w-full bg-white/90 dark:bg-gray-950/90 justify-between py-6 backdrop-blur-md border-b border-gray-200 dark:border-gray-800'
   if (siteMetadata.stickyNav) {
     headerClass += ' sticky top-0 z-50'
   }
@@ -37,9 +37,12 @@ const Header = () => {
               <Link
                 key={link.title}
                 href={link.href}
-                className="hover:text-primary-600 dark:hover:text-primary-400 m-1 px-3 py-1 font-medium text-gray-700 transition-colors duration-200 dark:text-gray-200"
+                className="group relative m-1 px-3 py-1 font-medium text-gray-700 dark:text-gray-200"
               >
-                {link.title}
+                <span className="group-hover:text-primary-600 dark:group-hover:text-primary-400 relative z-10 transition-colors duration-200">
+                  {link.title}
+                </span>
+                <span className="bg-primary-600 dark:bg-primary-400 absolute bottom-0 left-0 h-0.5 w-0 transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
         </div>
