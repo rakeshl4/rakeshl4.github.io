@@ -85,7 +85,7 @@ export default function Home({ posts }) {
         <div className="flex justify-end text-base leading-6 font-medium">
           <Link
             href="/posts"
-            className="text-primary-600 hover:text-primary-700 dark:text-primary-500 dark:hover:text-primary-400 border-primary-600 dark:border-primary-500 inline-flex items-center rounded-md border px-4 py-2 text-base font-medium transition-colors duration-200"
+            className="text-primary-600 hover:text-primary-700 dark:text-primary-500 dark:hover:text-primary-400 inline-flex items-center rounded-md px-4 py-2 text-base font-medium transition-colors duration-200"
             aria-label="All posts"
           >
             All Posts &rarr;
