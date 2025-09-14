@@ -12,7 +12,7 @@ In this post, I will explore the building blocks of multi-agent solutions and wh
 
 You have come across many definitions of an AI agent, but let’s keep it simple.
 
-***An AI agent is a self-contained software component that can act autonomously or semi-autonomously to achieve specific goals.***
+**_An AI agent is a self-contained software component that can act autonomously or semi-autonomously to achieve specific goals._**
 
 - **Self-contained** means it has the knowledge, tools, and decision-making capabilities to perform its tasks.
 - **Semi-autonomous** means it can collaborate with other agents or humans to accomplish more complex objectives.
@@ -56,14 +56,14 @@ This can soon lead to a few issues:
 
 ## A Better Approach: Multi Agents
 
-This is where multi-agent solutions are required. Multi-agent systems break down complex tasks into smaller, manageable components, each handled by a specialized agent. Each agent focuses on a subset of the overall task and collaborates with others to achieve the final goal. 
+This is where multi-agent solutions are required. Multi-agent systems break down complex tasks into smaller, manageable components, each handled by a specialized agent. Each agent focuses on a subset of the overall task and collaborates with others to achieve the final goal.
 
 This makes the system more modular, scalable, and easier to maintain.
 
 In this case, we can have the following agents:
 
 1. **Inventory Agent**: Checks if the bike is in stock. It would connect to the inventory database and return the stock status.
-2. **Payment Agent**:  Processes the payment using a payment gateway. It would handle the payment logic and return the payment status.
+2. **Payment Agent**: Processes the payment using a payment gateway. It would handle the payment logic and return the payment status.
 3. **Order Agent**: The agent handles the order submission to the warehouse. It would connect to one or more APIs to submit the order and return the order status.
 4. **Notification Agent**: The agent sends a confirmation email to the customer.
 
@@ -71,11 +71,11 @@ In this case, we can have the following agents:
 
 ### 1. Workflow Orchestration
 
-When you have multiple agents working together, you still need control on how the tasks are executed and this is where orchestration patterns are neeeded. 
+When you have multiple agents working together, you still need control on how the tasks are executed and this is where orchestration patterns are neeeded.
 
 Let us look at some common orchestration patterns -
 
-**Sequential Pattern**: In this pattern, agents are executed one after the other. The output of one agent is passed as input to the next agent. This is useful when the tasks are dependent on each other.  
+**Sequential Pattern**: In this pattern, agents are executed one after the other. The output of one agent is passed as input to the next agent. This is useful when the tasks are dependent on each other.
 
 Document Processing Pipeline - Agent A extracts text → Agent B summarizes it → Agent C translates it.
 
@@ -99,7 +99,7 @@ JSON is the standard format for structured data exchange in the industry. The ag
 
 For example, if the **Inventory Agent** returns the stock status, it should do so in a structured format that the **Order Agent** can easily understand.
 
-```json
+````json
 {
   "bike_model": "Mountain Bike",
   "in_stock": true,
@@ -112,7 +112,7 @@ For example, if the **Inventory Agent** returns the stock status, it should do s
   "in_stock": true,
   "quantity_available": 5
 }
-```
+````
 
 In this case, the **Inventory Agent** might return a response like:
 
@@ -131,7 +131,7 @@ Each agent is responsible for maintaining its own state and context, which inclu
 For example, the **Order Agent** might store information such as the customer’s order details, preferences, current task status, and any intermediate results required to fulfill the order.
 
 Apart from the agent memory, a multi-agent system also requires a mechanism for sharing context across agents. A shared context ensures that all agents are aware of important changes or events that impact the overall workflow. For instance, if the customer cancelled their order, all agents should be aware of this change and adjust their actions accordingly.
-  
+
 ### 4. Security and Privacy
 
 Agents can perform actions on behalf of users, which raises security and privacy concerns. This can be controlled by implementing access controls and ensuring that agents only have access to the information and tools they need to perform their tasks.

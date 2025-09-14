@@ -78,10 +78,10 @@ var modelDeployment = Environment.GetEnvironmentVariable("MODEL_DEPLOYMENT_NAME"
 // Define a simple function tool for weather
 string FetchWeather(string location)
 {
-    // In production, call a real API. Here, return a mock response.
-    if (location == "Seattle") return "Sunny, 25°C";
-    if (location == "London") return "Cloudy, 18°C";
-    return "Weather data not available.";
+// In production, call a real API. Here, return a mock response.
+if (location == "Seattle") return "Sunny, 25°C";
+if (location == "London") return "Cloudy, 18°C";
+return "Weather data not available.";
 }
 
 // Register the function tool
@@ -93,18 +93,18 @@ toolset.Add(weatherTool);
 var projectClient = new AIProjectClient(connectionString, credential);
 var agent = await projectClient.Agents.CreateAgentAsync(new CreateAgentOptions
 {
-    Model = modelDeployment,
-    Name = "Weather Assistant",
-    Instructions = "You are a helpful assistant that provides weather information.",
-    Toolset = toolset
+Model = modelDeployment,
+Name = "Weather Assistant",
+Instructions = "You are a helpful assistant that provides weather information.",
+Toolset = toolset
 });
 
 // Create a thread and send a message
 var thread = await projectClient.Agents.CreateThreadAsync();
 var message = await projectClient.Agents.CreateMessageAsync(thread.Id, new CreateMessageOptions
 {
-    Role = "user",
-    Content = "What's the weather in Seattle?"
+Role = "user",
+Content = "What's the weather in Seattle?"
 });
 
 // Run the agent
@@ -115,7 +115,7 @@ Console.WriteLine($"Run finished with status: {run.Status}");
 var messages = await projectClient.Agents.ListMessagesAsync(thread.Id, order: "asc");
 foreach (var msg in messages.Data)
 {
-    Console.WriteLine($"Role: {msg.Role}");
+Console.WriteLine($"Role: {msg.Role}");
     Console.WriteLine($"Content: {msg.Content[0].Text.Value}");
 }
 </VSCode.Cell>

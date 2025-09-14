@@ -169,7 +169,7 @@ Understanding the difference between knowledge and action tools helps in:
 
 In summary, knowledge tools empower LLMs to answer questions with up-to-date or specialized information, while action tools let them interact with and change the world. By combining both, you can build AI assistants that are both smart and useful—capable of informing, assisting, and acting on your behalf.
 
-## Example Notebooks Using C #
+## Example Notebooks Using C
 
 To see these concepts in action, you can explore example notebooks that demonstrate how to use knowledge and action tools with LLMs in C#:
 
