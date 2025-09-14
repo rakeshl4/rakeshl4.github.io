@@ -1,1 +1,20 @@
-{"openai":6,"llm":6,"agent":1,"multiagent":1,"tools":3,"rag":4,"testing":1,"sql":1,"azure":2,"apiops":1,"devops":1,"apim":1,"ai-agent":1,"azure-functions":1,"aks":1,"kubernetes":1,"container":1}
+{
+  "openai": 7,
+  "llm": 7,
+  "mcp": 1,
+  "vscode": 1,
+  "ai-agent": 2,
+  "multiagent": 1,
+  "tools": 3,
+  "rag": 4,
+  "testing": 1,
+  "sql": 1,
+  "azure": 2,
+  "azure-functions": 1,
+  "aks": 1,
+  "kubernetes": 1,
+  "container": 1,
+  "apiops": 1,
+  "devops": 1,
+  "apim": 1
+}

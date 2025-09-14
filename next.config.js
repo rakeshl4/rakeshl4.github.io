@@ -67,6 +67,7 @@ module.exports = () => {
     output,
     basePath,
     reactStrictMode: true,
+    trailingSlash: false,
     pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
     eslint: {
       dirs: ['app', 'components', 'layouts', 'scripts'],
@@ -85,6 +86,15 @@ module.exports = () => {
         {
           source: '/(.*)',
           headers: securityHeaders,
+        },
+      ]
+    },
+    async redirects() {
+      return [
+        {
+          source: '/blog/:path*',
+          destination: '/posts/:path*',
+          permanent: true,
         },
       ]
     },

@@ -1,5 +1,5 @@
 {
-  "image": "mcr.microsoft.com/vscode/devcontainers/javascript-node:20",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
   "hostRequirements": {
     "memory": "8gb"
   },
@@ -9,7 +9,7 @@
   "postAttachCommand": "yarn dev",
   "customizations": {
     "codespaces": {
-      "openFiles": ["data/posts/code-sample.mdx"]
+      "openFiles": ["data/blog/code-sample.mdx"]
     },
     "vscode": {
       "settings": {
