@@ -5,7 +5,7 @@ const siteMetadata = {
   headerTitle: 'BinaryTrails',
   description: 'A blog created with Next.js and Tailwind.css',
   language: 'en-us',
-  theme: 'system', // system, dark or light
+  theme: 'light', // system, dark or light
   siteUrl: 'https://rakeshl4.github.io',
   siteRepo: 'https://github.com/rakeshl4/rakeshl4.github.io',
   siteLogo: `${process.env.BASE_PATH || ''}/static/images/logo.png`,

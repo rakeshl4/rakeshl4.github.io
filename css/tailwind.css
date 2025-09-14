@@ -1,6 +1,146 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+@plugin "@tailwindcss/forms";
+@plugin '@tailwindcss/typography';
+@source '../node_modules/pliny';
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Core theme configuration */
+@theme {
+  /* Font families */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  /* Colors */
+  /* Darker blue color scheme */
+  --color-primary-50: oklch(0.961 0.028 233.881); /* Light blue */
+  --color-primary-100: oklch(0.929 0.052 233.064);
+  --color-primary-200: oklch(0.885 0.092 232.475);
+  --color-primary-300: oklch(0.828 0.138 231.793);
+  --color-primary-400: oklch(0.700 0.187 228.945);
+  --color-primary-500: oklch(0.580 0.230 227.001); /* Medium-dark blue */
+  --color-primary-600: oklch(0.520 0.235 226.242);
+  --color-primary-700: oklch(0.450 0.212 225.092);
+  --color-primary-800: oklch(0.380 0.178 224.208);
+  --color-primary-900: oklch(0.320 0.147 223.541);
+  --color-primary-950: oklch(0.200 0.124 222.695); /* Very dark blue */
+
+  --color-gray-50: oklch(0.985 0.002 247.839);
+  --color-gray-100: oklch(0.967 0.003 264.542);
+  --color-gray-200: oklch(0.928 0.006 264.531);
+  --color-gray-300: oklch(0.872 0.01 258.338);
+  --color-gray-400: oklch(0.707 0.022 261.325);
+  --color-gray-500: oklch(0.551 0.027 264.364);
+  --color-gray-600: oklch(0.446 0.03 256.802);
+  --color-gray-700: oklch(0.373 0.034 259.733);
+  --color-gray-800: oklch(0.278 0.033 256.848);
+  --color-gray-900: oklch(0.21 0.034 264.665);
+  --color-gray-950: oklch(0.13 0.028 261.692);
+
+  /* Line heights */
+  --line-height-11: 2.75rem;
+  --line-height-12: 3rem;
+  --line-height-13: 3.25rem;
+  --line-height-14: 3.5rem;
+
+  /* Z-index values */
+  --z-60: 60;
+  --z-70: 70;
+  --z-80: 80;
+}
+
+/* AI Blog Title Custom Styling */
+.font-tech {
+  font-family: var(--font-inter), 'Consolas', monospace;
+  letter-spacing: 0.05em;
+  font-variant-numeric: tabular-nums;
+}
+
+.ai-title::before {
+  content: '< ';
+  color: var(--color-primary-500);
+  opacity: 0.9;
+}
+
+.ai-title::after {
+  content: ' >';
+  color: var(--color-primary-500);
+  opacity: 0.9;
+}
+
+.dark .ai-title::before,
+.dark .ai-title::after {
+  color: var(--color-primary-400);
+  opacity: 0.9;
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  a,
+  button {
+    outline-color: var(--color-primary-500);
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid;
+    border-radius: var(--radius-sm);
+    outline-color: var(--color-primary-500);
+  }
+}
+
+@layer utilities {
+  .prose {
+    & a {
+      color: var(--color-primary-500);
+      &:hover {
+        color: var(--color-primary-600);
+      }
+      & code {
+        color: var(--color-primary-400);
+      }
+    }
+    & :where(h1, h2) {
+      font-weight: 700;
+      letter-spacing: var(--tracking-tight);
+    }
+    & h3 {
+      font-weight: 600;
+    }
+    & :where(code):not(pre code) {
+      color: var(--color-primary-600);
+    }
+  }
+
+  .prose-invert {
+    & a {
+      color: var(--color-primary-500);
+      &:hover {
+        color: var(--color-primary-400);
+      }
+      & code {
+        color: var(--color-primary-400);
+      }
+    }
+    & :where(h1, h2, h3, h4, h5, h6) {
+      color: var(--color-gray-100);
+    }
+  }
+}
 
 .task-list-item::before {
   @apply hidden;

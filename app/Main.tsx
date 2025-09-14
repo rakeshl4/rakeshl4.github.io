@@ -4,14 +4,14 @@ import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
 
-const MAX_DISPLAY = 8
+const MAX_DISPLAY = 5
 
 export default function Home({ posts }) {
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        {/* <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+        {/* <div className="space-y-2 pt-6 pb-8 md:space-y-5">
+          <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
             Latest
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
@@ -25,38 +25,37 @@ export default function Home({ posts }) {
             return (
               <li key={slug} className="py-12">
                 <article>
-                  <div className="space-y-2 xl:grid xl:grid-cols-4 xl:items-baseline xl:space-y-0">
-                    <dl>
-                      <dt className="sr-only">Published on</dt>
-                      <dd className="text-base font-medium leading-6 text-gray-500 dark:text-blue-400">
-                        <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
-                      </dd>
-                    </dl>
-                    <div className="space-y-5 xl:col-span-3">
-                      <div className="space-y-6">
+                  <div className="space-y-2">
+                    <div className="space-y-5">
+                      <div className="space-y-4">
                         <div>
-                          <h2 className="text-2xl font-bold leading-8 tracking-tight">
+                          <h2 className="text-2xl leading-8 font-bold tracking-tight">
                             <Link
                               href={`/posts/${slug}`}
-                              className="text-blue-900 dark:text-blue-100"
+                              className="text-gray-900 dark:text-gray-100"
                             >
                               {title}
                             </Link>
                           </h2>
-                          <div className="flex flex-wrap">
-                            {tags.map((tag) => (
-                              <Tag key={tag} text={tag} />
-                            ))}
+                          <div className="flex flex-col space-y-2 mt-2">
+                            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                              <time dateTime={date}>{formatDate(date, siteMetadata.locale)}</time>
+                            </span>
+                            <div className="flex flex-wrap -ml-0">
+                              {tags.map((tag) => (
+                                <Tag key={tag} text={tag} />
+                              ))}
+                            </div>
                           </div>
                         </div>
                         <div className="prose max-w-none text-gray-500 dark:text-gray-400">
                           {summary}
                         </div>
                       </div>
-                      <div className="text-base font-medium leading-6">
+                      <div className="text-base leading-6 font-medium">
                         <Link
                           href={`/posts/${slug}`}
-                          className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                          className="inline-flex items-center text-primary-600 hover:text-primary-700 dark:text-primary-500 dark:hover:text-primary-400 font-medium"
                           aria-label={`Read more: "${title}"`}
                         >
                           Read more &rarr;
@@ -71,21 +70,21 @@ export default function Home({ posts }) {
         </ul>
       </div>
       {posts.length > MAX_DISPLAY && (
-        <div className="flex justify-end text-base font-medium leading-6">
+        <div className="flex justify-end text-base leading-6 font-medium">
           <Link
-            href="/posts"
-            className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+            href="/blog"
+            className="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 dark:bg-primary-800 dark:hover:bg-primary-700 transition-colors duration-200"
             aria-label="All posts"
           >
             All Posts &rarr;
           </Link>
         </div>
       )}
-      {/* {siteMetadata.newsletter?.provider && (
+      {siteMetadata.newsletter?.provider && (
         <div className="flex items-center justify-center pt-4">
           <NewsletterForm />
         </div>
-      )} */}
+      )}
     </>
   )
 }
