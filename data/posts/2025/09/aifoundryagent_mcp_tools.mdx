@@ -3,8 +3,8 @@ title: Using MCP Tools with Azure AI Foundry Agents
 date: '2025-09-21'
 tags: ['AI', 'Azure', 'MCP', 'AI Foundry', 'Agents']
 draft: false
-images: ['/static/images/2025-09-20/azure-ai-foundry-mcp.png']
-summary: Learn how to extend Azure AI Foundry Agents with custom MCP (Model Context Protocol) tools to create intelligent agents that can interact with external systems. This comprehensive guide walks through building a complete AI assistant solution for Contoso Bike Store, demonstrating MCP tool integration, Azure infrastructure setup, and real-world implementation patterns.
+images: ['static/images/2025-09-21/chat-1.png']
+summary: Modern AI Agents are becoming increasingly powerful, but their true potential is unlocked when they can interact with external systems. In my previous post, I discussed how to create MCP (Model Context Protocol) servers and the advantages of using MCP to connect AI models to external tools and data sources vs. traditional function callings. In this follow-up post, I will dive into using MCP tools with Azure AI Foundry Agents.
 ---
 
 Modern AI Agents are becoming increasingly powerful, but their true potential is unlocked when they can interact with external systems. In my previous post, [Building MCP Servers with GitHub Copilot](https://binarytrails.com/posts/2025/09/building_testing_mcp_vscode), I discussed how to create MCP (Model Context Protocol) servers and the advantages of using MCP to connect AI models to external tools and data sources vs. traditional function calling.
@@ -18,13 +18,13 @@ We will create an AI-powered customer service agent for a fictional bike store c
 - Placing orders
 - Tracking order status
 
-![MCP Tools Integration](https://raw.githubusercontent.com/rakeshl4/aifoundryagent-mcp-tools/main/resources/mcp-tools-integration.png)
+![Chat Interface](/static/images/2025-09-21/chat-1.png)
 
 ## Solution Architecture
 
 The agent will handle the inquiries using a MCP server that exposes a set of tools for interacting with the bike store's backend systems.
 
-![Architecture Overview](https://raw.githubusercontent.com/rakeshl4/aifoundryagent-mcp-tools/main/resources/architecture.png)
+![Architecture Overview](/static/images/2025-09-21/architecture.png)
 
 The architecture consists of several key components:
 
@@ -34,7 +34,7 @@ The architecture consists of several key components:
 - **MCP Server**: Custom MCP server that extends agent capabilities with domain-specific tools
 - **Product Microservice**: REST API providing product inventory and order management data
 
-Let us focus on the MCP tools integration aspect. The MCP server is .NET API that connects to a product inventory microservice to fetch bike data. The order management tools are simulated for demonstration purposes.
+The MCP server is .NET API that connects to a product inventory microservice to fetch bike data. The order management tools are simulated for demonstration purposes.
 
 The frontend provides a simple chat interface where users can interact with the Contoso Bike Store assistant. The backend API orchestrates the communication between the frontend, the Azure AI Foundry agent, and the MCP server. The Agent uses GPT-4.1 model and has access to the MCP tools for real-time data retrieval and order processing.
 
@@ -60,7 +60,7 @@ The Contoso Bike Store agent is pre-configured with a set of tools that allow it
 - "What is the price of the Mountain Explorer bike?"
 - "What is the status of my order ORD-1234?"
 
-![Chat Interface](https://raw.githubusercontent.com/rakeshl4/aifoundryagent-mcp-tools/main/resources/chat-interface.png)
+![Chat Interface](/static/images/2025-09-21/chat-2.png)
 
 ### Testing the MCP Server on Github Copilot Chat
 
@@ -86,13 +86,13 @@ Refer to the [Use MCP servers in VS Code](https://code.visualstudio.com/docs/cop
 
 After configuring the MCP server, you can start a new chat in Copilot Chat.
 
-![Copilot Chat](https://raw.githubusercontent.com/rakeshl4/aifoundryagent-mcp-tools/main/resources/copilot-chat.png)
+![Copilot Chat](/static/images/2025-09-21/copilot-chat.png)
 
 ### Understanding the Execution Flow
 
 When you send a message to the agent, here's what happens behind the scenes:
 
-![Execution Flow](https://raw.githubusercontent.com/rakeshl4/aifoundryagent-mcp-tools/main/resources/chat-1.png)
+![Execution Flow](/static/images/2025-09-21/execution-flow.png)
 
 1. **User Input**: User types a message in the chat interface
 2. **Frontend to Backend**: The React app sends the message to the ASP.NET Core API
@@ -132,7 +132,7 @@ Let us now explore how the solution is implemented in more detail.
 
 ### Contoso Bike Store MCP Server
 
-Now let's dive into the core implementation details. The MCP server uses `ModelContextProtocol` .NET SDK to define and expose tools. You would also need to add references to `ModelContextProtocol.AspNetCore` to expose the MCP server over HTTP.
+The MCP server uses `ModelContextProtocol` .NET SDK to define and expose tools. You would also need to add references to `ModelContextProtocol.AspNetCore` to expose the MCP server over HTTP.
 
 Here's how the MCP server is registered in the ASP.NET Core application:
 
@@ -309,10 +309,6 @@ private async Task InvokeAgent(string userPrompt, PersistentAgent agent, Persist
 
 ## Key Takeaways and Best Practices
 
-After building this complete solution, here are the most important lessons learned:
-
-### MCP Tool Design Principles
-
 1. **Keep Tools Focused**: Each MCP tool should have a single, well-defined responsibility. This makes them easier to test, maintain, and reuse across different agents.
 
 2. **Handle Errors Gracefully**: Always include proper error handling in your MCP tools. The agent should receive meaningful error messages that help it provide useful feedback to users.
@@ -321,7 +317,7 @@ After building this complete solution, here are the most important lessons learn
 
 4. **Implement Authentication**: In production environments, always secure your MCP servers with proper authentication mechanisms like API keys or OAuth.
 
-### References and Further Learning
+## References and Further Learning
 
 - [Azure AI Foundry Documentation](https://learn.microsoft.com/azure/ai-foundry/)
 - [Azure AI Foundry Agent Service](https://learn.microsoft.com/en-us/azure/ai-services/agents/overview)
