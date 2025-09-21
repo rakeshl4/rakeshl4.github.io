@@ -103,29 +103,6 @@ When you send a message to the agent, here's what happens behind the scenes:
 7. **Response Generation**: The agent combines the tool results with its knowledge to generate a helpful response
 8. **Display Result**: The frontend displays the agent's response with any relevant data
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant Frontend as React Frontend
-    participant Backend as ASP.NET Core API
-    participant Agent as Azure AI Foundry Agent
-    participant MCP as MCP Server
-    participant Product as Product Microservice
-
-    User->>Frontend: 1. Types message in chat interface
-    Frontend->>Backend: 2. Sends message to API
-    Backend->>Agent: 3. Invokes agent with user message
-    Agent->>Agent: 4. Analyzes request & determines MCP tools to call
-    Agent->>MCP: 5. Calls appropriate MCP server endpoints
-    MCP->>Product: 6. Fetches data from product microservice
-    Product-->>MCP: Returns product data
-    MCP-->>Agent: Returns tool results
-    Agent->>Agent: 7. Combines tool results with knowledge
-    Agent-->>Backend: Returns generated response
-    Backend-->>Frontend: 8. Sends response to frontend
-    Frontend-->>User: Displays agent's response with data
-```
-
 ## Implementation Details
 
 Let us now explore how the solution is implemented in more detail.
