@@ -1,5 +1,5 @@
 ---
-title: Using MCP Tools with Azure AI Foundry Agents
+title: Supercharging AI Agents with MCP Tools
 date: '2025-09-21'
 tags: ['AI', 'Azure', 'MCP', 'AI Foundry', 'Agents']
 draft: false
