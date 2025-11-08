@@ -4,14 +4,14 @@ date: '2025-11-04'
 tags: ['AI Agent', 'LLM', 'Azure', 'Agent Framework']
 draft: false
 images: ['/static/images/2025-10-11/structured-output-flow.png']
-summary: While LLMs excel at generating human-like text, their responses can be unpredictable in format and structure. The format is important when the AI's responses need to be consumed by other downstream systems. JSON has always been a popular choice for structured data interchange. In this post, we will explore how to implement structured output using JSON Schema in AI agents so that the responses are consistent and can be consumed reliably by other systems.
+summary: While Language Models excel at generating human-like text, their responses can be unpredictable in format and structure. The format is important when the responses need to be consumed by other downstream systems. JSON has always been a popular choice for structured data interchange. In this post, we will bridge the gap between conversational AI and reliable system integration by using JSON Schema to enforce structured outputs in AI agents.
 ---
 
 ![structured-output-flow](/static/images/2025-01-08/structured-output-flow.png)
 
-While Language Models excel at generating human-like text, their responses can be unpredictable in format and structure. The format is important when the AI's responses need to be consumed by other downstream systems.
+While Language Models excel at generating human-like text, their responses can be unpredictable in format and structure. The format is important when the responses need to be consumed by other downstream systems.
 
-JSON has always been a popular choice for structured data interchange. In this post, we will explore how to implement structured output using JSON Schema in AI agents so that the responses are consistent and can be consumed reliably by other systems.
+JSON has always been a popular choice for structured data interchange. In this post, we will bridge the gap between conversational AI and reliable system integration by using JSON Schema to enforce structured outputs in AI agents.
 
 💡 **Source Code**: You can find the full working implementation of the example discussed in this post in the GitHub repository: [agent_framework_structured_output](https://github.com/rakeshl4/agent_framework_structured_output)
 
@@ -26,7 +26,7 @@ But for this example, let's focus on the scenario where a customer wants to plac
 
 The customer might say:
 
-> I want to buy Constoso Roadster bike. I need it to be delivered to Seattle.
+> I want to buy Contoso Roadster bike. I need it to be delivered to Seattle.
 
 In a real scenario, the customer will have more conversations with the agent to finalize the model and place the order. Now, based on the system instructions and the available tools the agent may respond with something like:
 
@@ -63,7 +63,7 @@ Here's an example of registering an order management tool:
 {
   "type": "function",
   "function": {
-    "name": "process_bike_order",
+    "name": "submit_order",
     "description": "Process a customer bike order at Contoso Bike Store",
     "parameters": {
       "type": "object",
@@ -97,7 +97,7 @@ Here's an example of registering an order management tool:
 }
 ```
 
-The below diagram illustrates the high-level flow:
+The following diagram summarizes how the system interacts with the model and tools.
 
 ![design](/static/images/2025-11-04/execution-flow.png)
 
@@ -132,6 +132,19 @@ While tool schemas help with function calling, the Agent Framework provides an a
 Let's look at how to implement this using the Microsoft Agent Framework in C#.
 
 For this example, we will build a **Customer Review Analyzer** agent that processes customer reviews of Contoso bikes and extracts insights. The agent analyzes review text and returns consistent JSON output that can be integrated with downstream systems for reporting and analysis.
+
+The below diagram illustrates the overall steps in this process:
+
+![design](/static/images/2025-11-04/agent_framework.png)
+
+1. The customer review text is sent to the AI agent.
+2. The AI agent consists of three main components: the Language Model, tools and the instructions that guide the agent's behavior. The agent processes the review text based on the defined instructions and generates the response.
+
+   The Microsoft Agent Framework ensures that the response adheres to the specified JSON Schema for structured output.
+
+3. The output from the agent can be deserialized into the `ReviewAnalysis` objects which can then be used for further processing, reporting, or integration with other systems.
+
+The source code for this example is available on GitHub: [agent_framework_structured_output](https://github.com/rakeshl4/agent_framework_structured_output)
 
 ### Step 1: Define Your Data Model
 
@@ -192,24 +205,30 @@ using Azure.AI.OpenAI;
 using Azure.Identity;
 using Microsoft.Agents.AI;
 
-AIAgent agent = new AzureOpenAIClient(
-    new Uri("https://your-resource.openai.azure.com"),
-    new AzureCliCredential())
-        .GetChatClient("gpt-4o-mini")
-        .CreateAIAgent(new ChatClientAgentOptions()
+        var uri = "https://models.inference.ai.azure.com";
+        var apiKey = Environment.GetEnvironmentVariable("GITHUB_TOKEN");
+
+        var client = new OpenAIClient(new ApiKeyCredential(apiKey), new OpenAIClientOptions { Endpoint = new Uri(uri) });
+        var chatCompletionClient = client.GetChatClient(modelId);
+
+        _agent = chatCompletionClient.CreateAIAgent(new ChatClientAgentOptions()
         {
             Name = "ContosoBikeReviewAnalyzer",
+            ChatOptions = chatOptions,
             Instructions = @"You are a customer review analyzer for Contoso Bike Store.
             Your role is to analyze customer reviews and extract insights.
 
             ANALYSIS GUIDELINES:
             - Extract overall sentiment (positive, negative, neutral) and rating (1-5)
+            - Identify the bike model mentioned in the review
             - List specific issues and positive highlights as separate arrays
             - Determine recommendation likelihood (high, medium, low) based on overall tone
             - Provide a concise summary of the review's key points
-            - If information is not mentioned, leave fields as null rather than guessing",
-            ChatOptions = chatOptions
+            - If information is not mentioned, leave fields as null rather than guessing
+
+            IMPORTANT: Always respond with valid JSON that matches the ReviewAnalysis schema exactly.",
         });
+
 ```
 
 ### Step 5: Process Reviews
@@ -226,8 +245,7 @@ try
     var analysis = response.Deserialize<ReviewAnalysis>(JsonSerializerOptions.Web);
 
     Console.WriteLine($"Review Analysis Complete:");
-    Console.WriteLine($"Bike Model: {analysis.BikeModel}");
-    Console.WriteLine($"Overall Rating: {analysis.OverallRating}/5");
+
     Console.WriteLine($"Sentiment: {analysis.Sentiment}");
     Console.WriteLine($"Recommendation Likelihood: {analysis.RecommendationLikelihood}");
     Console.WriteLine($"Summary: {analysis.Summary}");
@@ -240,51 +258,29 @@ catch (JsonException ex)
 }
 ```
 
-The below diagram illustrates the overall steps in this process:
+Here is a sample JSON output from the agent:
 
-![design](/static/images/2025-11-04/agent_framework.png)
-
-1. The customer review text is sent to the AI agent.
-2. The AI agent consists of three main components: the Language Model, tools and the instructions that guide the agent's behavior. The agent processes the review text based on the defined instructions and generates the response.
-
-   The Microsoft Agent Framework ensures that the response adheres to the specified JSON Schema for structured output.
-
-3. The output from the agent can be deserialized into the `ReviewAnalysis` objects which can then be used for further processing, reporting, or integration with other systems.
+```json
+{
+  "sentiment": "positive",
+  "summary": "I bought the Mountain Explorer last month for weekend trails. The bike is fantastic for climbing hills - really solid frame and smooth shifting. However, the seat is quite uncomfortable for longer rides (over 2 hours). Also, the delivery took 3 weeks which was longer than expected. Overall happy with the purchase, would definitely buy from Contoso again.",
+  "positive_highlights": [
+    "Fantastic for climbing hills",
+    "Solid frame",
+    "Smooth shifting",
+    "Overall satisfaction with the purchase"
+  ],
+  "issues_mentioned": ["Uncomfortable seat for longer rides", "Lengthy delivery time"]
+}
+```
 
 ## Conclusion
 
-Structured output with JSON Schema transforms how businesses can extract value from customer feedback. In our Contoso Bike Store example, we saw how the Customer Review Analyzer can:
+The real power of intelligent applications goes beyond generating text. To automate processes, connect with other systems, and maintain data quality, structured output is the key. It ensures AI agents produce consistent, reliable results that can easily fit into business workflows.
 
-1. **Provide Consistent Analysis**: Every review is processed using the same criteria and categories
-2. **Enable Data-Driven Decisions**: Structured insights can be aggregated to identify trends and patterns
-3. **Integrate Seamlessly**: JSON output feeds directly into product management and customer service systems
-4. **Scale Efficiently**: Automated analysis handles hundreds of reviews faster than manual processing
-5. **Maintain Quality**: Validation ensures analysis results meet business requirements
+Microsoft’s Agent Framework makes this easier by using JSON Schema to define and validate structured responses.
 
-### Key Takeaways for Implementation
+## Further Reading
 
-- **Design Comprehensive Schemas**: Include all aspects of feedback your business needs to track
-- **Use Validation Extensively**: Ensure analysis quality with both schema-level and business-logic validation
-- **Handle Missing Information Gracefully**: Design for real-world scenarios where not all information is available
-- **Plan for Aggregation**: Structure data to enable meaningful business intelligence and reporting
-- **Implement Monitoring**: Track analysis quality and adjust prompts based on results
-
-### The Business Impact
-
-Structured review analysis enables:
-
-- **Product Improvement**: Systematic identification of product issues and enhancement opportunities
-- **Customer Service Optimization**: Data-driven improvements to delivery, support, and ordering processes
-- **Competitive Analysis**: Understanding how customers compare your products to competitors
-- **Quality Assurance**: Early detection of product defects or service issues
-- **Strategic Planning**: Customer sentiment trends inform business strategy decisions
-
-In the Contoso Bike Store scenario, structured output isn't just about data format—it's about transforming unstructured customer feedback into actionable business intelligence that drives product development, improves customer satisfaction, and increases operational efficiency.
-
-By implementing structured output in your AI agents, you're building the foundation for truly intelligent business processes that understand both customer sentiment and system requirements.
-
-## Getting Started
-
-The complete source code for the example is available on GitHub:
-
-🔗 **[agent_framework_structured_output](https://github.com/rakeshl4/agent_framework_structured_output)**
+- [Microsoft Agent Framework Documentation](https://learn.microsoft.com/en-us/agent-framework/overview/agent-framework-overview)
+- [Microsoft Agent Framework Samples](https://github.com/microsoft/Agent-Framework-Samples)
