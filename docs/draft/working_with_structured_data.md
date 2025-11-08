@@ -13,6 +13,8 @@ While Language Models excel at generating human-like text, their responses can b
 
 JSON has always been a popular choice for structured data interchange. In this post, we will explore how to implement structured output using JSON Schema in AI agents so that the responses are consistent and can be consumed reliably by other systems.
 
+💡 **Source Code**: You can find the full working implementation of the example discussed in this post in the GitHub repository: [agent_framework_structured_output](https://github.com/rakeshl4/agent_framework_structured_output)
+
 ## The Challenge with Unstructured Output from the Language Models
 
 Before diving into structured output, let's understand the problem we are solving.
@@ -80,16 +82,6 @@ Here's an example of registering an order management tool:
           "pattern": "^[0-9\\-\\+\\(\\)\\s]+$",
           "description": "Customer's phone number for delivery coordination"
         },
-        "bike_model": {
-          "type": "string",
-          "enum": [
-            "Contoso Commuter Pro",
-            "Contoso Mountain Explorer",
-            "Contoso City Cruiser",
-            "Contoso Sport Hybrid"
-          ],
-          "description": "Selected bike model from available inventory"
-        },
         "delivery_address": {
           "type": "string",
           "description": "Complete delivery address including street, city, state, and zip code"
@@ -99,13 +91,7 @@ Here's an example of registering an order management tool:
           "description": "Optional delivery or assembly instructions"
         }
       },
-      "required": [
-        "customer_name",
-        "customer_email",
-        "customer_phone",
-        "bike_model",
-        "delivery_address"
-      ]
+      "required": ["customer_name", "customer_email", "customer_phone", "delivery_address"]
     }
   }
 }
@@ -139,9 +125,9 @@ Note that the function calling is not supported by all language models.
 
 The key benefit is that the language model understands exactly what information the tool needs and can systematically collect it through natural conversation.
 
-## Structured Output with AI Agent Framework
+## Structured Output with Agent Framework
 
-While tool schemas help with function calling, the AI Agent Framework provides an additional capability by enforcing structured output format for the agent's responses themselves. This ensures the agent always returns data in a predictable JSON structure, even when not calling tools.
+While tool schemas help with function calling, the Agent Framework provides an additional capability by enforcing structured output format for the agent's responses themselves. This ensures the agent always returns data in a predictable JSON structure, even when not calling tools.
 
 Let's look at how to implement this using the Microsoft Agent Framework in C#.
 
@@ -259,7 +245,10 @@ The below diagram illustrates the overall steps in this process:
 ![design](/static/images/2025-11-04/agent_framework.png)
 
 1. The customer review text is sent to the AI agent.
-2. The AI agent consists of three main components: the Language Model, tools and the instructions that guide the agent's behavior. The agent processes the review text based on the defined instructions and generates the response. The Microsoft Agent Framework ensures that the response adheres to the specified JSON Schema for structured output.
+2. The AI agent consists of three main components: the Language Model, tools and the instructions that guide the agent's behavior. The agent processes the review text based on the defined instructions and generates the response.
+
+   The Microsoft Agent Framework ensures that the response adheres to the specified JSON Schema for structured output.
+
 3. The output from the agent can be deserialized into the `ReviewAnalysis` objects which can then be used for further processing, reporting, or integration with other systems.
 
 ## Conclusion
@@ -293,3 +282,9 @@ Structured review analysis enables:
 In the Contoso Bike Store scenario, structured output isn't just about data format—it's about transforming unstructured customer feedback into actionable business intelligence that drives product development, improves customer satisfaction, and increases operational efficiency.
 
 By implementing structured output in your AI agents, you're building the foundation for truly intelligent business processes that understand both customer sentiment and system requirements.
+
+## Getting Started
+
+The complete source code for the example is available on GitHub:
+
+🔗 **[agent_framework_structured_output](https://github.com/rakeshl4/agent_framework_structured_output)**

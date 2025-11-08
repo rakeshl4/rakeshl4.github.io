@@ -1,6 +1,5 @@
 {
   "ai-agent": 3,
-  "json-schema": 1,
   "llm": 8,
   "azure": 4,
   "agent-framework": 1,
