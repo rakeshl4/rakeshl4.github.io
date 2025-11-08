@@ -27,7 +27,7 @@ export default function AuthorLayout({ children, content }: Props) {
 
       <div className="relative mx-auto max-w-7xl">
         {/* About header removed */}
-        <div className="items-start space-y-8 pt-8 xl:grid xl:grid-cols-12 xl:gap-x-8 xl:space-y-0">
+        <div className="items-start space-y-8 pt-8 xl:grid xl:grid-cols-12 xl:space-y-0 xl:gap-x-8">
           {/* Profile Card */}
           <div className="relative flex transform flex-col items-center justify-center overflow-hidden bg-white/80 p-6 pt-8 text-center shadow-xl backdrop-blur-sm transition-all duration-300 hover:shadow-2xl xl:col-span-3 dark:bg-gray-900/80">
             {/* Card decorative elements */}

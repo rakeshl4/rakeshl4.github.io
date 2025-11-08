@@ -1,7 +1,7 @@
 ---
 title: Working with Structured Data in AI Agents Using JSON Schema
-date: '2025-10-11'
-tags: ['AI Agent', 'JSON Schema', 'LLM', 'Azure', 'Structured Output']
+date: '2025-11-04'
+tags: ['AI Agent', 'LLM', 'Azure', 'Agent Framework']
 draft: false
 images: ['/static/images/2025-10-11/structured-output-flow.png']
 summary: While LLMs excel at generating human-like text, their responses can be unpredictable in format and structure. The format is important when the AI's responses need to be consumed by other downstream systems. JSON has always been a popular choice for structured data interchange. In this post, we will explore how to implement structured output using JSON Schema in AI agents so that the responses are consistent and can be consumed reliably by other systems.
@@ -9,44 +9,51 @@ summary: While LLMs excel at generating human-like text, their responses can be 
 
 ![structured-output-flow](/static/images/2025-01-08/structured-output-flow.png)
 
-While LLMs excel at generating human-like text, their responses can be unpredictable in format and structure. The format is important when the AI's responses need to be consumed by other downstream systems.
+While Language Models excel at generating human-like text, their responses can be unpredictable in format and structure. The format is important when the AI's responses need to be consumed by other downstream systems.
 
 JSON has always been a popular choice for structured data interchange. In this post, we will explore how to implement structured output using JSON Schema in AI agents so that the responses are consistent and can be consumed reliably by other systems.
 
-## The Challenge with Unstructured LLM Output
+## The Challenge with Unstructured Output from the Language Models
 
 Before diving into structured output, let's understand the problem we are solving.
 
 Consider a customer placing an order at Contoso Bike Store by interacting with an AI-powered agent.
-The agent may handle multiple types of requests, such as product inquiries, orders, and support tickets. But for this example, let's focus on the scenario where a customer wants to place an order for a bike. To support order processing, the agent is provided access to an order management tool to submit the order.
+The agent may handle multiple types of requests, such as product inquiries, orders, and support tickets.
+
+But for this example, let's focus on the scenario where a customer wants to place an order for a bike.
 
 The customer might say:
 
 > I want to buy Constoso Roadster bike. I need it to be delivered to Seattle.
 
-In a real scenario, the customer may have more conversations with the agent to finalize the model and place the order. Now, based on the system instructions and the available tools the agent may respond with something like:
+In a real scenario, the customer will have more conversations with the agent to finalize the model and place the order. Now, based on the system instructions and the available tools the agent may respond with something like:
 
 ```text
 
-To complete your order, I'll need your full name, delivery address, phone number, and payment method. Could you please provide these details?
+To complete your order, I'll need your full name,
+delivery address, phone number, and payment method.
+
+Could you please provide these details?
 
 ```
 
-While this response is conversational, it creates several challenges:
+While this response is conversational, it creates a few challenges:
 
 1. **Information Gathering**: The system doesn't systematically collect the required order data. This means the user is not presented with a clear set of fields to fill out.
 2. **Data Validation**: The language model may miss or misinterpret required fields, leading to incomplete orders.
-3. **System Integration**: The order information must be sent to another system for processing which expects structured data (e.g., JSON).
+3. **System Integration**: The order information must be sent to another system for processing which expects structured data.
 4. **Process Tracking**: It is difficult to track if all necessary information has been collected from the user and ready to be sent to the order management system.
 
 ## Tool Schema for Function Calling
+
+To support order processing, the agent is provided access to an order management tool to submit the order.
 
 When language models interact with external tools or functions, they need to understand the tool's interface through a JSON Schema. This schema defines the tool's capabilities and contract, including input parameters, data types, required fields, and validation rules.
 
 When you register a tool with a language model, you provide the following information.
 
 1. **Tool Name and Description**: The name of the tool should be descriptive and indicate its purpose. In addition, a brief description helps the model understand when to use the tool.
-2. **Parameter Schema**: The fields that the tool requires are defined using JSON Schema. This includes data types (string, integer, boolean, etc.), required fields.
+2. **Parameter Schema**: The fields that the tool requires are defined using JSON Schema. This includes data types (string, integer, boolean, etc.), and required fields.
 
 Here's an example of registering an order management tool:
 
@@ -98,8 +105,7 @@ Here's an example of registering an order management tool:
         "customer_phone",
         "bike_model",
         "delivery_address"
-      ],
-      "additionalProperties": false
+      ]
     }
   }
 }
@@ -107,17 +113,39 @@ Here's an example of registering an order management tool:
 
 The below diagram illustrates the high-level flow:
 
-**TODO: Insert diagram showing customer interaction with AI agent, agent using order management tool, and structured data flow to order system.**
+![design](/static/images/2025-11-04/execution-flow.png)
 
-The key benefit is that the LLM understands exactly what information the tool needs and can systematically collect it through natural conversation. When the model collects all required fields, it returns a structured JSON payload that matches the schema. Your orchestration logic can then invoke the order management tool by passing the structured payload.
+1. **Receive Customer Input**: The **AI Application** collects the input from the customer and sends it to the language model along with the tool schema.
+
+2. **Process Customer Input**: The language model processes the customer's message and the tool schema to understand what information is needed.
+   When the model collects all required fields, it returns a structured JSON payload that matches the schema similar to this:
+
+```json
+{
+  "customer_name": "Sarah Johnson",
+  "customer_email": "sarah.johnson@example.com.au",
+  "customer_phone": "+61-2-9876-5432",
+  "bike_model": "Contoso Mountain Explorer",
+  "delivery_address": "123 Collins Street, Melbourne, VIC, 3000",
+  "special_instructions": "Leave package at the front door."
+}
+```
+
+Note that the function calling is not supported by all language models.
+
+3. **Function Execution**: The AI application executes the actual function code **submit_order** with the structured parameters provided by the language model. The function returns the result which gets passed back to the language model.
+
+4. **Customer Response**: The language model generates a natural language response to the customer based on the function execution result.
+
+The key benefit is that the language model understands exactly what information the tool needs and can systematically collect it through natural conversation.
 
 ## Structured Output with AI Agent Framework
 
 While tool schemas help with function calling, the AI Agent Framework provides an additional capability by enforcing structured output format for the agent's responses themselves. This ensures the agent always returns data in a predictable JSON structure, even when not calling tools.
 
-Let's look at how to implement this using the Azure AI Agent Framework in C#.
+Let's look at how to implement this using the Microsoft Agent Framework in C#.
 
-For this example, we will build a **Customer Review Analyzer** agent that processes customer reviews of Contoso bikes and extracts structured insights. The agent analyzes review text and returns consistent JSON output that can be integrated with downstream systems for reporting and analysis.
+For this example, we will build a **Customer Review Analyzer** agent that processes customer reviews of Contoso bikes and extracts insights. The agent analyzes review text and returns consistent JSON output that can be integrated with downstream systems for reporting and analysis.
 
 ### Step 1: Define Your Data Model
 
@@ -130,15 +158,6 @@ using System.Text.Json.Serialization;
 public class ReviewAnalysis
 {
     [Required]
-    [JsonPropertyName("bike_model")]
-    public string? BikeModel { get; set; }
-
-    [Required]
-    [Range(1, 5)]
-    [JsonPropertyName("overall_rating")]
-    public int OverallRating { get; set; }
-
-    [Required]
     [JsonPropertyName("sentiment")]
     public string? Sentiment { get; set; } // "positive", "negative", "neutral"
 
@@ -147,9 +166,6 @@ public class ReviewAnalysis
 
     [JsonPropertyName("positive_highlights")]
     public List<string>? PositiveHighlights { get; set; }
-
-    [JsonPropertyName("recommendation_likelihood")]
-    public string? RecommendationLikelihood { get; set; } // "high", "medium", "low"
 
     [JsonPropertyName("summary")]
     public string? Summary { get; set; }
@@ -210,7 +226,7 @@ AIAgent agent = new AzureOpenAIClient(
         });
 ```
 
-### Step 5: Process Reviews and Get Structured Output
+### Step 5: Process Reviews
 
 Now you can analyze customer reviews and get consistent structured output:
 
@@ -237,6 +253,14 @@ catch (JsonException ex)
     Console.WriteLine($"Error parsing analysis result: {ex.Message}");
 }
 ```
+
+The below diagram illustrates the overall steps in this process:
+
+![design](/static/images/2025-11-04/agent_framework.png)
+
+1. The customer review text is sent to the AI agent.
+2. The AI agent consists of three main components: the Language Model, tools and the instructions that guide the agent's behavior. The agent processes the review text based on the defined instructions and generates the response. The Microsoft Agent Framework ensures that the response adheres to the specified JSON Schema for structured output.
+3. The output from the agent can be deserialized into the `ReviewAnalysis` objects which can then be used for further processing, reporting, or integration with other systems.
 
 ## Conclusion
 
