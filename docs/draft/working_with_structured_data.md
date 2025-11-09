@@ -1,5 +1,5 @@
 ---
-title: Working with Structured Data in AI Agents Using JSON Schema
+title: Working with Structured Data in AI Agents
 date: '2025-11-04'
 tags: ['AI Agent', 'LLM', 'Azure', 'Agent Framework']
 draft: false
