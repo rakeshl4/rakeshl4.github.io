@@ -3,7 +3,7 @@ title: Building Secure Approval Workflows with Microsoft Agent Framework and AG-
 date: '2025-12-25'
 tags: ['AI Agent', 'Microsoft Agent Framework', 'AG-UI']
 draft: false
-images: ['/static/images/2025-12-25/approval_workflow.png']
+images: ['/static/images/2025-12-25/cover.png']
 summary: Tools are the hands of the AI agent, enabling it to perform actions beyond generating text. There are tools for querying databases, calling APIs, sending emails, and a host of other capabilities. Tools may sometimes perform actions that change system state or need access to sensitive data. This is where it is critical to stay in control to ensure security and compliance. In this post, we'll explore how to build secure approval workflows using Microsoft Agent Framework and AG-UI, ensuring that critical actions require explicit user consent before execution.
 ---
 
