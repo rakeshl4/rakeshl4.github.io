@@ -1,5 +1,5 @@
 ---
-title: Solving Context Window Limits with Modular AI Skills
+title: 𝐒𝐨𝐥𝐯𝐢𝐧𝐠 𝐂𝐨𝐧𝐭𝐞𝐱𝐭 𝐖𝐢𝐧𝐝𝐨𝐰 𝐋𝐢𝐦𝐢𝐭𝐬 𝐰𝐢𝐭𝐡 𝐌𝐨𝐝𝐮𝐥𝐚𝐫 𝐀𝐈 𝐒𝐤𝐢𝐥𝐥𝐬 𝐢𝐧 𝐭𝐡𝐞 𝐌𝐢𝐜𝐫𝐨𝐬𝐨𝐟𝐭 𝐀𝐠𝐞𝐧𝐭 𝐅𝐫𝐚𝐦𝐞𝐰𝐨𝐫𝐤
 date: '2026-03-11'
 tags: ['AI Agent', 'Microsoft Agent Framework', 'Skills', 'Context Engineering']
 draft: false
