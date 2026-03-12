@@ -1,10 +1,10 @@
 ---
-title: Solving Context Window Challenges with AI Skills in Microsoft Agent Framework
+title: Solving Context Window Limits with Modular AI Skills
 date: '2026-03-11'
 tags: ['AI Agent', 'Microsoft Agent Framework', 'Skills', 'Context Engineering']
 draft: false
 images: ['/static/images/2026-03-11/cover.png']
-summary: As AI agents grow in capability, they quickly hit context window limitations. Packing all instructions, tool descriptions, and domain knowledge into a single prompt wastes tokens and degrades performance. In this post, we explore how AI Skills in Microsoft Agent Framework solve this through progressive disclosure—keeping the context lean while enabling rich, modular agent capabilities.
+summary: Building AI agents often starts simple: a system prompt, a few tools, and a straightforward conversation. But as your agent grows in capability, you start packing more and more into the context: detailed instructions, business rules and domain knowledge, tool usage guidelines, etc. This can quickly lead to a bloated context window, where critical instructions get lost in the noise, and you hit token limits that degrade performance. In this post, we'll explore why context windows fill up so quickly when building AI agents, and how AI Skills in Microsoft Agent Framework provide an elegant solution through progressive disclosure.
 ---
 
 Building AI agents often starts simple: a system prompt, a few tools, and a straightforward conversation.
